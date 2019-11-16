@@ -1,0 +1,83 @@
+*{
+    background-color: #dfddc7;
+}
+h1{
+    font-size: 48px;
+}
+.email-container{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.email{
+    font-size: 28px;
+    background-color: lightgoldenrodyellow;
+}
+.emailLabel{
+    font-size: 36px;
+}
+.emailInput{
+    font-size: 25px;
+    border-style:solid;
+    background-color: white;
+    border-width: 1px;
+}
+
+.button-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top:5%;
+    background-color: lightgoldenrodyellow;
+
+}
+.regSubBtn{
+    color:white;
+    background-color: limegreen;
+    font-size: 16px;
+    width:100px;
+    height:30px;
+    border-radius: 10px;
+    border:0px;
+
+}
+.regSubBtn:hover{
+    background-color: #29bc29;
+}
+
+.regCancelBtn{
+    color:white;
+    background-color: #dc3b3b;
+    font-size: 16px;
+    width:100px;
+    height:30px;
+    border-radius: 10px;
+    border:0px;
+
+
+}
+.regCancelBtn:hover{
+    background-color: #cc2c2c;
+}
+
+.register{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  
+}
+
+.regFields{
+    width: 500px;
+    height:300px;
+    padding:5%;
+    padding-top:1%;
+    margin:6%;
+    border-radius: 10px;
+    margin-top:10%;
+    background-color: lightgoldenrodyellow;
+}
+.regFields > h1{
+    text-align: center;
+    background-color: lightgoldenrodyellow;
+}
