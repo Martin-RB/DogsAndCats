@@ -1,22 +1,31 @@
 define(function(require){
     var publics = {};
     var container = null;
+    var navigation = null;
     var data = null;
 
-    publics.setContainer = function(){
-
+    publics.setContainer = function(cont){
+        container = cont;
+        return this;
     };
-    publics.setNavigation = function(){
 
+    publics.setNavigation = function(nav){
+        navigation = nav;
+        return this;
     };
-    publics.setData = function(){
 
+    publics.setData = function(dat){
+        data = dat;
+        return this;
     };
+
     publics.draw = function(){
-
+        return this;
     };
+
     publics.onClose = function(){
-
+        return this;
     };
+
     return publics;
 });

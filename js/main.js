@@ -14,10 +14,13 @@ var main = function(window, document, undefined){
         //
         let content = $(".content");
         let navigation = new Navigation();
-        require(["login"], function(LoginController){
-            console.log(LoginController);
-            navigation.pushScreen(LoginController);
+        navigation.setContainer(content);
+        require(["registerController"], function(RegisterController){
+            navigation.pushScreen(RegisterController);
         })
+        /* require(["loginController"], function(LoginController){
+            navigation.pushScreen(LoginController);
+        }) */
     }
 
 
