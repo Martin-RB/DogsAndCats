@@ -1,0 +1,37 @@
+
+.optionBar{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* width: 20px;
+    height:300px;
+    padding:5%;
+    padding-top:1%;
+    margin:6%;
+    border-radius: 10px;
+    margin-top:10%;
+    background-color: lightgoldenrodyellow; */
+}
+
+.optionBar > ul{
+    background-color: #f1f1f1;
+    margin: 10px;
+    padding: 20px;
+    font-size: 30px;
+    width: 25%;
+  }
+
+/* 
+.barElement{
+    background: tomato;
+    padding: 5px;
+    width: 200px;
+    height: 150px;
+    margin-top: 10px;
+    
+    line-height: 150px;
+    color: white;
+    font-weight: bold;
+    font-size: 3em;
+    text-align: center;
+} */
