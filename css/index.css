@@ -27,49 +27,90 @@ body{
 .content{
     height: calc(100vh - var(--headerHeight));
 }
-
-
-/*Login*/
-.login{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding: 20px;
-}
-
-.fieldSet{
-    border: 1px black solid;
-    border-radius: 10px;
-    padding: 20px;
-}
-
-.fieldSet > *{
-    margin-bottom: 15px;
-}
-
-/*Register*/
-h1{
-    font-size: 48px;
-}
-.email-container{
+/*//////////////////////////////////////////////////*/
+/*General*/
+.email-container,.password-container,.username-container{
     display:flex;
     flex-direction: column;
     justify-content: space-around;
 }
-.email{
-    font-size: 28px;
-    background-color: lightgoldenrodyellow;
-}
-.emailLabel{
-    font-size: 36px;
-}
-.emailInput{
+.emailInput,.passwordInput{
     font-size: 25px;
     border-style:solid;
     background-color: white;
     border-width: 1px;
 }
+.emailShow,.passwordShow,.usernameShow{
+    font-size: 25px;
+    border-style:solid;
+    background-color: white;
+    border-width: 1px;
+}
+/* .email,.password,.username{
+    font-size: 28px;
+    background-color: lightgoldenrodyellow;
+} */
+.emailLabel,.passwordLabel,.usernameLabel{
+    font-size: 36px;
+}
 
+/*//////////////////////////////////////////////////*/
+/*//////////////////////////////////////////////////*/
+/*Login*/
+
+.logSubBtn{
+    color:white;
+    background-color: limegreen;
+    font-size: 16px;
+    width:100px;
+    height:30px;
+    border-radius: 10px;
+    border:0px;
+
+}
+.logSubBtn:hover{
+    background-color: #29bc29;
+}
+
+.logCancelBtn{
+    color:white;
+    background-color: #dc3b3b;
+    font-size: 16px;
+    width:100px;
+    height:30px;
+    border-radius: 10px;
+    border:0px;
+
+
+}
+.logCancelBtn:hover{
+    background-color: #cc2c2c;
+}
+
+.login{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  
+}
+
+.loginFields{
+    width: 500px;
+    height:300px;
+    padding:5%;
+    padding-top:1%;
+    margin:6%;
+    border-radius: 10px;
+    margin-top:10%;
+    background-color: lightgoldenrodyellow;
+}
+.loginFields > h1{
+    text-align: center;
+    background-color: lightgoldenrodyellow;
+}
+/*//////////////////////////////////////////////////*/
+
+/*Register*/
 .button-container{
     display: flex;
     flex-direction: row;
@@ -125,6 +166,61 @@ h1{
     background-color: lightgoldenrodyellow;
 }
 .regFields > h1{
+    text-align: center;
+    background-color: lightgoldenrodyellow;
+}
+
+/*///////////////////////////////////////////////////////////////*/
+/*MyProfile*/
+
+.profEdBtn{
+    color:white;
+    background-color: limegreen;
+    font-size: 16px;
+    width:100px;
+    height:30px;
+    border-radius: 10px;
+    border:0px;
+
+}
+.profEdBtn:hover{
+    background-color: #29bc29;
+}
+.myProfile{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  
+}
+.profileFields{
+    width: 500px;
+    height:300px;
+    padding:5%;
+    padding-top:1%;
+    margin:6%;
+    border-radius: 10px;
+    margin-top:10%;
+    background-color: lightgoldenrodyellow;
+}
+.profileFields > h1{
+    text-align: center;
+    background-color: lightgoldenrodyellow;
+}
+/*///////////////////////////////////////////////////////////////*/
+.logoutFields{
+    width: 500px;
+    height:300px;
+    padding:5%;
+    padding-top:1%;
+    margin:6%;
+    border-radius: 10px;
+    margin-top:10%;
+    background-color: lightgoldenrodyellow;
+}
+.closeLogoutModal{
+    background-color: none;
+}
+.logoutModalContent > p{
     text-align: center;
     background-color: lightgoldenrodyellow;
 }
