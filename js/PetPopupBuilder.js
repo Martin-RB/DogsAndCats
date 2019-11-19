@@ -13,8 +13,9 @@ define(function(require){
 
     var setEvents = function(){
         console.log(popupEntity);
+        popupEntity.off("click", ":not(img)");
         popupEntity.on("click", ":not(img)", function(){
-            popupEntity.remove();
+            navigation.popScreen();
         })
     }
 
@@ -45,26 +46,6 @@ define(function(require){
         popupEntity.remove();
         return this;
     };
-
-    var add = function(){
-        $.ajax({
-            type: "get",
-            url : "https://dog.ceo/api/breeds/image/random",
-            success: addElement
-        })
-    }
-
-    var addElement = function(dat){
-        var el = 
-                        `<div class="pet-el">
-                            <img class="pet-img" src=":img:" alt="Nop"  >
-                            <div class="pet-foot">
-                                <span class="heart"><i class="fas fa-heart"></i></span>
-                                <p class="counter">100k favs</p>
-                            </div>
-                        </div>`;
-                $(".petspace").append(el.replace(":img:", dat.message));
-    }
 
     return publics;
 });

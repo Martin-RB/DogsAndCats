@@ -1,6 +1,6 @@
 body{
     --titleFontSize: 2.25em;
-    --headerHeight: 100px;
+    --headerHeight: 60px;
 
     --colorGray: #dfddc7;
     --colorYellow: #ffe066;
@@ -12,6 +12,7 @@ body{
     background-color: var(--colorGray);
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
 }
 
 .header{
@@ -21,7 +22,17 @@ body{
     width: 100%;
     font-size: var(--titleFontSize);
     height: var(--headerHeight);
-    line-height: 100px;
+    line-height: var(--headerHeight);
+}
+
+.back-btn{
+    position: absolute;
+    top: 0;
+    left: 3%;
+    display: inline-block;
+}
+.back-btn:hover{
+    cursor: pointer;
 }
 
 .content{
@@ -221,4 +232,53 @@ h1{
     display: block;
     margin-right: auto;
 
+}
+
+.friends-menu{
+    height: 80%;
+    position: fixed;
+    right: -16vw;   
+    margin-top: 10px;
+    /* background: red; */
+    width: calc(16vw + 25px);
+    font-size: 21px;
+}
+.friends-open{
+    display: inline-block;
+    position: absolute;
+}
+.friends-area{
+    display: inline-block;
+    margin-left: 20px;
+    background: bisque;
+    height: 100%;
+    width: calc(100% - 25px);
+    margin-left: 25px;
+}
+
+.friends-top{
+    margin-bottom: 15px;
+}
+
+.friends-top > *{
+    display: block;
+    margin: auto;
+}
+
+.friends-content{
+    border-top: 1px black solid;
+}
+
+.friends-content > ul{
+    padding: 10px;
+}
+
+.friends-content > ul > li{
+    list-style: none;
+    padding: 5px;
+}
+
+.friends-content > ul > li:hover{
+    cursor: pointer;
+    background-color: var(--colorYellow);
 }
