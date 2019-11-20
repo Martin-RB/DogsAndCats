@@ -4,6 +4,7 @@ let mysql = require("mysql");
 let mail = require("nodemailer");
 let md5 = require("md5");
 let cookies = require("cookie-parser");
+let request = require("request");
 
 // Routes
 var user = require("./user");
@@ -70,7 +71,7 @@ var inputErrorStatus = function(res){
 
 
 var obj = {mysql: conn, mailer: mail, l: functionBundle, md5: md5, 
-    processErrorStatus: processErrorStatus, inputErrorStatus: inputErrorStatus};
+    processErrorStatus: processErrorStatus, inputErrorStatus: inputErrorStatus, request: request};
 
 app.use("/user", user(express.Router(), obj));
 app.use("/users", users(express.Router(), obj));

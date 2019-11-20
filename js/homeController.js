@@ -15,10 +15,7 @@ define(function(require){
     var friendIcon_icon = `<i class="fas fa-user-friends"></i>`;
     var restore = null;
     var idUser = -1;
-    // 0 = random
-    // 1 = dogs
-    // 2 = cats
-    var state = 0;
+
     // 0 = closed
     // 1 = open
     var friendState = 0;
@@ -82,7 +79,9 @@ define(function(require){
             container.load("screens/home.html", function(){
                 findFields();
                 setEvents();
-                petSpace.html("");
+                getPets();
+                
+                /*petSpace.html("");
                 for (let i = 0; i < 25; i++) {
                     switch(state){
                         case 0: getBoth()
@@ -92,7 +91,7 @@ define(function(require){
                         case 2: getCats()
                             break;
                     }
-                }
+                }*/
                 /* require(["PetPopupBuilder"], function(Pet){
                     navigation.pushScreen(Pet, {image: "https://images.dog.ceo/breeds/collie-border/n02106166_6545.jpg"});
                 }) */
@@ -109,6 +108,32 @@ define(function(require){
         restore = null;
         return this;
     };
+
+    var getPets = function(petType="random", owenership="all", own_id=-1){
+
+        // 0 = random
+        // 1 = dogs
+        // 2 = cats
+        //var petType = 0;
+
+        // 0 = all
+        // 1 = mine
+        // 2 = other
+        //var owenership = 0;
+        //var own_id = -1;
+
+        petSpace.html("");
+        $.ajax({
+            type: "get",
+            url: `http://localhost:6969/images/${petType}/${owenership}/${own_id}`,
+            dataType: "json",
+            success: function(data){
+                data.forEach(url => {
+                    addElement(url);
+                });
+            }
+        })
+    }
 
     var getDog = function(){
         $.ajax({
@@ -151,7 +176,7 @@ define(function(require){
                                 <p class="counter">100k favs</p>
                             </div>
                         </div>`;
-                $(".petspace").prepend(el.replace(":img:", url));
+                $(".petspace").append(el.replace(":img:", url));
     }
 
     return publics;

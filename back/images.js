@@ -16,7 +16,7 @@ module.exports = function(router, b){
         if(params.petType === undefined || params.petType === "" ||
         params.whom === undefined || params.whom === ""){
             b.l.cerr("Invalid input", params);
-            inputErrorStatus(res);
+            b.inputErrorStatus(res);
             res.send();
             return;
         }
@@ -27,16 +27,19 @@ module.exports = function(router, b){
 
         if(whom === "all"){
             let imageCount = 18;
-            getImages(petType, imageCount, [], function(imgs){
-                if(imgs.length != imageCount){
-                    b.l.cerr("Invalid input", params.id);
-                    inputErrorStatus(res);
-                    res.send();
-                    return;
-                }
-
-                res.json(imgs);
-            });
+            var procs = 18;
+            var procReady = 0;
+            var imggs = [];
+            for (let i = 0; i < procs; i++) {
+                getImages(petType, imageCount/procs, imggs, function(imgs){
+                    if(procReady < procs - 1){
+                        procReady+= 1;
+                        return;
+                    }
+    
+                    res.json(imggs);
+                });
+            }
         }
         else if(whom === "mine"){
             let sql_params = [idActualUser];
@@ -72,7 +75,7 @@ module.exports = function(router, b){
 
             if(params.id === undefined || params.id === ""){
                 b.l.cerr("Invalid input", params.id);
-                inputErrorStatus(res);
+                b.inputErrorStatus(res);
                 res.send();
                 return;
             }
@@ -106,6 +109,9 @@ module.exports = function(router, b){
                 res.json(imgs);
             })
         }
+        else{
+            res.status(500).send();
+        }
     });
 
     var getImages = function(type, count, arr, callback){
@@ -117,13 +123,13 @@ module.exports = function(router, b){
         if(type == "dogs"){
             getDog(function(url){
                 arr.push(url);
-                getImages(count - 1, arr, callback)
+                getImages(type, count - 1, arr, callback)
             });
         }
         else if(type == "cats"){
             getCat(function(){
                 arr.push(url);
-                getImages(count - 1, arr, callback);
+                getImages(type, count - 1, arr, callback);
             })
         }
         else if(type == "random"){
@@ -131,13 +137,13 @@ module.exports = function(router, b){
             if(rand >= 50){
                 getDog(function(url){
                     arr.push(url);
-                    getImages(count - 1, arr, callback)
+                    getImages(type, count - 1, arr, callback)
                 });
             }
             else{
                 getCat(function(url){
                     arr.push(url);
-                    getImages(count - 1, arr, callback)
+                    getImages(type, count - 1, arr, callback)
                 });
             }
         }
@@ -145,17 +151,17 @@ module.exports = function(router, b){
     }
 
     var getDog = function(callback){
-        request('https://dog.ceo/api/breeds/image/random', { json: true }, (err, res, body) => {
+        b.request('https://dog.ceo/api/breeds/image/random', { json: true }, (err, res, body) => {
             if (err) { return console.log(err); }
-            url = res.message;
+            url = res.body.message;
             callback(url);
             });
     }
 
     var getCat = function(callback){
-        request('https://api.thecatapi.com/v1/images/search', { json: true }, (err, res, body) => {
+        b.request('https://api.thecatapi.com/v1/images/search', { json: true }, (err, res, body) => {
             if (err) { return console.log(err); }
-            url = res[0].url;
+            url = res.body[0].url;
             callback(url);
             });
     }
@@ -167,7 +173,7 @@ module.exports = function(router, b){
         if(body === undefined || body.image === undefined || body.image === ""
                 || body.type === undefined || body.type === ""){
             b.l.cerr("Invalid input", body);
-            inputErrorStatus(res);
+            b.inputErrorStatus(res);
             res.send();
             return;
         }
