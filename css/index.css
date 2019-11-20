@@ -24,6 +24,7 @@ body{
     height: var(--headerHeight);
     line-height: var(--headerHeight);
 }
+
 .back-btn{
     position: absolute;
     top: 0;
@@ -392,4 +393,147 @@ body{
 }
 .logoutModalContent > p{
     margin:25%;
+}
+
+/*Home*/
+.h-top{
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    background-color: var(--colorRed);
+    padding: 0 10px;
+    font-size: 1.15em;
+}
+.h-topDrop{
+    line-height: 50px;
+    text-align: center;
+    margin-right: 5px;
+    width: 150px;
+}
+.h-topDrop--acc{
+    margin-left: auto;
+}
+.h-topDrop--login{
+    width: auto;
+    padding: 0 5px;
+    display: inline-block;
+}
+.h-topDrop--reg{
+    width: auto;
+    padding: 0 5px;
+    display: inline-block;
+}
+.petspace{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.pet-el{
+    height: auto;
+    /* border: 1px black solid; */
+    border-radius: 8px;
+    width: 25%;
+    margin: 3%;
+    background-color: #fffdea;
+}
+.pet-img{
+    height: 300px;
+    width: 100%;
+}
+.pet-foot{
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    line-height: 30px;
+}
+.pet-foot > .heart{
+    width: 30%;
+    display: inline-block;
+    text-align: center;
+    color: var(--colorBrown);
+}
+.pet-foot > .counter{
+    width: 70%;
+    margin: 0;
+    display: inline-block;
+}
+
+.full-pet{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #6868688f;
+}
+
+.full-pet-content{
+    width: 86vw;
+    height: 90vh;
+    margin-left: 7vw;
+    margin-top: 5vh;
+    /* background-color: #fffdea; */
+    /* text-align: center; */
+}
+
+.full-pet-content > img{
+    /* max-width: 50%;
+    max-height: 90%; */
+    min-width: 50%;
+    max-width: 100%;
+    max-height: 100%;
+    scale: 200%;
+    margin-left: auto;
+    display: block;
+    margin-right: auto;
+
+}
+
+.friends-menu{
+    height: 80%;
+    position: fixed;
+    right: -16vw;   
+    margin-top: 10px;
+    /* background: red; */
+    width: calc(16vw + 25px);
+    font-size: 21px;
+}
+.friends-open{
+    display: inline-block;
+    position: absolute;
+}
+.friends-area{
+    display: inline-block;
+    margin-left: 20px;
+    background: bisque;
+    height: 100%;
+    width: calc(100% - 25px);
+    margin-left: 25px;
+}
+
+.friends-top{
+    margin-bottom: 15px;
+}
+
+.friends-top > *{
+    display: block;
+    margin: auto;
+}
+
+.friends-content{
+    border-top: 1px black solid;
+}
+
+.friends-content > ul{
+    padding: 10px;
+}
+
+.friends-content > ul > li{
+    list-style: none;
+    padding: 5px;
+}
+
+.friends-content > ul > li:hover{
+    cursor: pointer;
+    background-color: var(--colorYellow);
 }
