@@ -67,149 +67,6 @@ body{
 
 /*//////////////////////////////////////////////////*/
 
-/*Home*/
-.h-top{
-    display: flex;
-    flex-direction: row;
-    height: 50px;
-    background-color: var(--colorRed);
-    padding: 0 10px;
-    font-size: 1.15em;
-}
-.h-topDrop{
-    line-height: 50px;
-    text-align: center;
-    margin-right: 5px;
-    width: 150px;
-}
-.h-topDrop--acc{
-    margin-left: auto;
-}
-.h-topDrop--login{
-    width: auto;
-    padding: 0 5px;
-    display: inline-block;
-}
-.h-topDrop--reg{
-    width: auto;
-    padding: 0 5px;
-    display: inline-block;
-}
-.petspace{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-.pet-el{
-    height: auto;
-    /* border: 1px black solid; */
-    border-radius: 8px;
-    width: 25%;
-    margin: 3%;
-    background-color: #fffdea;
-}
-.pet-img{
-    height: 300px;
-    width: 100%;
-}
-.pet-foot{
-    display: flex;
-    flex-direction: row;
-    height: 30px;
-    line-height: 30px;
-}
-.pet-foot > .heart{
-    width: 30%;
-    display: inline-block;
-    text-align: center;
-    color: var(--colorBrown);
-}
-.pet-foot > .counter{
-    width: 70%;
-    margin: 0;
-    display: inline-block;
-}
-
-.full-pet{
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: #6868688f;
-}
-
-.full-pet-content{
-    width: 86vw;
-    height: 90vh;
-    margin-left: 7vw;
-    margin-top: 5vh;
-    /* background-color: #fffdea; */
-    /* text-align: center; */
-}
-
-.full-pet-content > img{
-    /* max-width: 50%;
-    max-height: 90%; */
-    min-width: 50%;
-    max-width: 100%;
-    max-height: 100%;
-    scale: 200%;
-    margin-left: auto;
-    display: block;
-    margin-right: auto;
-
-}
-
-.friends-menu{
-    height: 80%;
-    position: fixed;
-    right: calc(-16vw + 10px);   
-    margin-top: 10px;
-    /* background: red; */
-    width: calc(16vw + 25px);
-    font-size: 21px;
-}
-.friends-open{
-    display: inline-block;
-    position: absolute;
-}
-.friends-area{
-    display: inline-block;
-    margin-left: 20px;
-    background: bisque;
-    height: 100%;
-    width: calc(100% - 25px);
-    margin-left: 25px;
-    padding: 10px;
-}
-
-.friends-top{
-    margin-bottom: 15px;
-}
-
-.friends-top > *{
-    display: block;
-    margin: auto;
-}
-
-.friends-content{
-    border-top: 1px black solid;
-}
-
-.friends-content > ul{
-    padding: 10px;
-}
-
-.friends-content > ul > li{
-    list-style: none;
-    padding: 5px;
-}
-
-.friends-content > ul > li:hover{
-    cursor: pointer;
-    background-color: var(--colorYellow);
-}
 /*//////////////////////////////////////////////////*/
 /*Login*/
 
@@ -293,7 +150,6 @@ body{
     height:30px;
     border-radius: 10px;
     border:0px;
-
 }
 .regSubBtn:hover{
     background-color: #29bc29;
@@ -492,10 +348,10 @@ body{
 .friends-menu{
     height: 80%;
     position: fixed;
-    right: -16vw;   
+    right: -16vw;  
     margin-top: 10px;
     /* background: red; */
-    width: calc(16vw + 25px);
+    width: 19vw;
     font-size: 21px;
 }
 .friends-open{
@@ -506,15 +362,21 @@ body{
     display: inline-block;
     margin-left: 20px;
     background: bisque;
+    padding: 10px;
     height: 100%;
     width: calc(100% - 25px);
     margin-left: 25px;
 }
+.friends-area > p{
+    text-decoration: underline;
+}
 
 .friends-top{
     margin-bottom: 15px;
+    margin-top: 10px;
+    border-top: 1px black dashed;
+    padding: 10px;
 }
-
 .friends-top > *{
     display: block;
     margin: auto;
@@ -536,4 +398,129 @@ body{
 .friends-content > ul > li:hover{
     cursor: pointer;
     background-color: var(--colorYellow);
+}
+
+.notifications{
+    height:100px;
+    overflow-y: scroll;
+    background-color: #ffecd6;
+}
+
+.notifications > *{
+    display:block;
+}
+
+.not-item{
+    margin-bottom: 16px;
+    font-size: 0.7em;
+}
+.not-item:hover{
+    cursor: pointer;
+    background-color: var(--colorYellow);
+}
+
+
+.shuffleBtn{
+    margin: auto;
+    display: block;
+    background-color: var(--colorRed);
+}
+.shuffleBtn:hover{
+    background-color: var(--colorBrown);
+}
+
+.navbar {
+    overflow: hidden;
+    background-color: #f58b54;
+  }
+  
+  .navbar a {
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  .dropdown {
+    float: left;
+    overflow: hidden;
+    width: 25%;
+  }
+  
+  .dropdown .dropbtn {
+    font-size: 16px;  
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    width: 100%;
+    
+    
+  }
+  
+  .navbar a:hover, .dropdown:hover .dropbtn {
+    background-color: #a34a28;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fffdea;
+  width: 25%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
+     z-index: 1;
+  }
+  
+  .dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px  16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+.decide{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.decideBtn:hover{
+    cursor:pointer;
+}
+
+.burger-btn{
+    position: absolute;
+    top: 0;
+    left: 3%;
+    display: inline-block;
+}
+
+@media (max-width: 800px){
+    .burger-btn{
+        display: initial;
+    }
+}
+
+@media (min-width: 1024px){
+    .burger-btn{
+        display: none;
+    }
+}
+@media (max-width: 767px){
+    .navbar{
+        display: none;
+    }
 }
