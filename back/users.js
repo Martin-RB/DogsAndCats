@@ -1,10 +1,10 @@
 module.exports = function(router, b){
     let conn = b.mysql;
-    
+
     router.get("/:search", function(req, res){
         let params = req.params;
         if(params.search === undefined){
-            b.f.cerr("Invalid input", params.search);
+            b.l.cerr("Invalid input", params.search);
             inputErrorStatus(res);
             res.send();
             return;
@@ -19,7 +19,7 @@ module.exports = function(router, b){
         conn.query(sql, [search], (err, result, fields) =>{
             if(err){
                 b.f.cerr(err);
-                processErrorStatus(res);
+                b.processErrorStatus(res);
                 res.send();
                 return;
             }

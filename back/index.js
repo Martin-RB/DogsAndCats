@@ -44,38 +44,34 @@ app.listen(6969, function(e){
 
 var functionBundle = function(){
     var publics = {};
-    // logging
-    publics.l = {
-        clog : function(...args){
-            console.log("I: ",args)
-        },
-        cerr : function(...args){
-            console.log("E: ", args);
-        },
-        cwar : function(...args){
-            console.log("W: ", args);
-        }
-    
+    publics.clog = function(...args){
+        console.log("I: ",args)
     };
-
-    publics.hasOwnProperties = function(obj, arr){
-        for (let i = 0; i < arr.length; i++) {
-            const el = arr[i];
-            if(!obj.hasOwnProperty(el)){
-                return false;
-            }
-            
-        }
-        return true;
+    publics.cerr = function(...args){
+        console.log("E: ", args);
+    };
+    publics.cwar = function(...args){
+        console.log("W: ", args);
     }
     return publics;
 }();
 
+var processErrorStatus = function(res){
+    res.statusMessage = "Error";
+    res.status(500);
+}
+
+var inputErrorStatus = function(res){
+    res.statusMessage = "Bad input";
+    res.status(400);
+}
 
 
+var obj = {mysql: conn, mailer: mail, l: functionBundle, md5: md5, 
+    processErrorStatus: processErrorStatus, inputErrorStatus: inputErrorStatus};
 
-app.use("/user", user(express.Router(), {mysql: conn, mailer: mail, f: functionBundle, md5: md5}));
-app.use("/users", users(express.Router(), {mysql: conn, mailer: mail, f: functionBundle, md5: md5}));
+app.use("/user", user(express.Router(), obj));
+app.use("/users", users(express.Router(), obj));
 /* 
 app.get("/user", function(req, res){
     res.send("asd");

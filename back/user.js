@@ -2,25 +2,20 @@ module.exports = function(router, b){
 
     let conn = b.mysql;
 
-    router.get("/:id", function(req, res){
+    router.get("/:id", function(req, res, next){
         let params = req.params;
         if(params.id === undefined){
-            b.f.cerr("Invalid input", params.id);
+            b.l.cerr("Invalid input", params.id);
             inputErrorStatus(res);
             res.send();
             return;
         }
         let id = params.id;
-
-        if(id == ""){
-            res.json([]);
-            return;
-        }
-        let sql = `SELECT * FROM users WHERE idUsers = ?% LIMIT 1`;
-        conn.query(sql, [search], (err, result, fields) =>{
+        let sql = `SELECT * FROM users WHERE idUsers = ? LIMIT 1`;
+        conn.query(sql, [id], (err, result, fields) =>{
             if(err){
-                b.f.cerr(err);
-                processErrorStatus(res);
+                b.l.cerr(err);
+                b.processErrorStatus(res);
                 res.send();
                 return;
             }
@@ -37,13 +32,46 @@ module.exports = function(router, b){
         });
     });
 
+    router.post("/login", function(req, res){
+        let body = req.body;
+
+        if(body === undefined || body.username === undefined || body.username === ""
+        || body.password === undefined || body.password === ""){
+            b.l.cerr("Invalid input", params.id);
+            inputErrorStatus(res);
+            res.send();
+            return;
+        }
+
+        let username = body.username;
+        let password = b.md5(body.password);
+        let sql = `select idUsers from users where name = ? and password = ?`;
+
+        conn.query(sql, [username, password], function(err, result){
+            if(err){
+                b.l.cerr(err);
+                b.processErrorStatus(res);
+                res.send();
+                return;
+            }
+
+            if(result.length === 0){
+                res.statusMessage = "Bad credentials";
+                res.status(404);
+                res.send();
+            }
+
+            res.send();
+        });
+    })
+
     router.post("/", function(req, res){
         let body = req.body;
         let sql = "";
         let sql_params = [];
         
         if(body === undefined || body.email === undefined || body.email === ""){
-            b.f.cerr("Invalid input", body);
+            b.l.cerr("Invalid input", body);
             inputErrorStatus(res);
             res.send();
             return;
@@ -59,8 +87,8 @@ module.exports = function(router, b){
 
         conn.query(sql, sql_params, (err, result) =>{
             if(err){
-                b.f.cerr(err);
-                processErrorStatus(res);
+                b.l.cerr(err);
+                b.processErrorStatus(res);
                 res.send();
                 return;
             }
@@ -74,12 +102,12 @@ module.exports = function(router, b){
                     <br><p>Don't worry. You can change them once logged in on the profile section</p>
                     <br><p>Regards. The Dogs&Pets team :)</p>`, 
                     function(error){
-                        b.f.cerr("Error sending email", error);
-                        processErrorStatus(res, "Error sending email");
+                        b.l.cerr("Error sending email", error);
+                        b.processErrorStatus(res, "Error sending email");
                         res.send();
                         return;
                     }, function(info){
-                        b.f.clog("Email sent", info);
+                        b.l.clog("Email sent", info);
                         res.status(200).send();
                     });
             
@@ -94,14 +122,14 @@ module.exports = function(router, b){
         let sqlFragments = "";
         let sql_params = [];
         if(body === undefined){
-            b.f.cerr("Invalid input", body);
+            b.l.cerr("Invalid input", body);
             inputErrorStatus(res);
             res.send();
             return;
         }
         
         if(params.id === undefined || params.id === ""){
-            b.f.cerr("Invalid input", body);
+            b.l.cerr("Invalid input", body);
             inputErrorStatus(res);
             res.send();
             return;
@@ -126,7 +154,7 @@ module.exports = function(router, b){
         }
 
         if(sql_params.length === 0){
-            b.f.cerr("Invalid input", body);
+            b.l.cerr("Invalid input", body);
             inputErrorStatus(res);
             res.send();
             return;
@@ -134,12 +162,12 @@ module.exports = function(router, b){
 
         let id = params.id;
         sql_params.push(id);
-        let sql = `update users set ${sqlFragments} where idUsers = ?`;
+        sql = `update users set ${sqlFragments} where idUsers = ?`;
 
         conn.query(sql, sql_params, (err,result) =>{
             if(err){
-                b.f.cerr(err, sql);
-                processErrorStatus(res);
+                b.l.cerr(err, sql);
+                b.processErrorStatus(res);
                 res.send();
                 return;
             }
