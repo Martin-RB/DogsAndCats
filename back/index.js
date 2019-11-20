@@ -3,10 +3,12 @@ let express = require("express");
 let mysql = require("mysql");
 let mail = require("nodemailer");
 let md5 = require("md5");
+let cookies = require("cookie-parser");
 
 // Routes
 var user = require("./user");
 var users = require("./users");
+var images = require("./images");
 
 var app = express();
 
@@ -72,6 +74,7 @@ var obj = {mysql: conn, mailer: mail, l: functionBundle, md5: md5,
 
 app.use("/user", user(express.Router(), obj));
 app.use("/users", users(express.Router(), obj));
+app.use("/images", images(express.Router(), obj));
 /* 
 app.get("/user", function(req, res){
     res.send("asd");
