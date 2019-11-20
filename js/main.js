@@ -15,8 +15,8 @@ var main = function(window, document, undefined){
         let content = $(".content");
         let navigation = new Navigation();
         navigation.setContainer(content);
-        require(["registerController"], function(RegisterController){
-            navigation.pushScreen(RegisterController);
+        require(["homeController"], function(a){
+            navigation.pushScreen(a);
         })
         /* require(["loginController"], function(LoginController){
             navigation.pushScreen(LoginController);

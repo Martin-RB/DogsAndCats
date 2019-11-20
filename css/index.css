@@ -1,6 +1,6 @@
 body{
     --titleFontSize: 2.25em;
-    --headerHeight: 100px;
+    --headerHeight: 60px;
 
     --colorGray: #dfddc7;
     --colorYellow: #ffe066;
@@ -12,6 +12,7 @@ body{
     background-color: var(--colorGray);
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
 }
 
 .header{
@@ -21,55 +22,260 @@ body{
     width: 100%;
     font-size: var(--titleFontSize);
     height: var(--headerHeight);
-    line-height: 100px;
+    line-height: var(--headerHeight);
+}
+.back-btn{
+    position: absolute;
+    top: 0;
+    left: 3%;
+    display: inline-block;
+}
+.back-btn:hover{
+    cursor: pointer;
 }
 
 .content{
     height: calc(100vh - var(--headerHeight));
 }
-
-
-/*Login*/
-.login{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding: 20px;
-}
-
-.fieldSet{
-    border: 1px black solid;
-    border-radius: 10px;
-    padding: 20px;
-}
-
-.fieldSet > *{
-    margin-bottom: 15px;
-}
-
-/*Register*/
-h1{
-    font-size: 48px;
-}
-.email-container{
+/*//////////////////////////////////////////////////*/
+/*General*/
+.email-container,.password-container,.username-container{
     display:flex;
     flex-direction: column;
     justify-content: space-around;
 }
-.email{
-    font-size: 28px;
-    background-color: lightgoldenrodyellow;
-}
-.emailLabel{
-    font-size: 36px;
-}
-.emailInput{
+.emailInput,.passwordInput{
     font-size: 25px;
     border-style:solid;
     background-color: white;
     border-width: 1px;
 }
+.emailShow,.passwordShow,.usernameShow{
+    font-size: 25px;
+    border-style:solid;
+    background-color: white;
+    border-width: 1px;
+}
+/* .email,.password,.username{
+    font-size: 28px;
+    background-color: lightgoldenrodyellow;
+} */
+.emailLabel,.passwordLabel,.usernameLabel{
+    font-size: 36px;
+}
 
+/*//////////////////////////////////////////////////*/
+
+/*Home*/
+.h-top{
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    background-color: var(--colorRed);
+    padding: 0 10px;
+    font-size: 1.15em;
+}
+.h-topDrop{
+    line-height: 50px;
+    text-align: center;
+    margin-right: 5px;
+    width: 150px;
+}
+.h-topDrop--acc{
+    margin-left: auto;
+}
+.h-topDrop--login{
+    width: auto;
+    padding: 0 5px;
+    display: inline-block;
+}
+.h-topDrop--reg{
+    width: auto;
+    padding: 0 5px;
+    display: inline-block;
+}
+.petspace{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.pet-el{
+    height: auto;
+    /* border: 1px black solid; */
+    border-radius: 8px;
+    width: 25%;
+    margin: 3%;
+    background-color: #fffdea;
+}
+.pet-img{
+    height: 300px;
+    width: 100%;
+}
+.pet-foot{
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    line-height: 30px;
+}
+.pet-foot > .heart{
+    width: 30%;
+    display: inline-block;
+    text-align: center;
+    color: var(--colorBrown);
+}
+.pet-foot > .counter{
+    width: 70%;
+    margin: 0;
+    display: inline-block;
+}
+
+.full-pet{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #6868688f;
+}
+
+.full-pet-content{
+    width: 86vw;
+    height: 90vh;
+    margin-left: 7vw;
+    margin-top: 5vh;
+    /* background-color: #fffdea; */
+    /* text-align: center; */
+}
+
+.full-pet-content > img{
+    /* max-width: 50%;
+    max-height: 90%; */
+    min-width: 50%;
+    max-width: 100%;
+    max-height: 100%;
+    scale: 200%;
+    margin-left: auto;
+    display: block;
+    margin-right: auto;
+
+}
+
+.friends-menu{
+    height: 80%;
+    position: fixed;
+    right: calc(-16vw + 10px);   
+    margin-top: 10px;
+    /* background: red; */
+    width: calc(16vw + 25px);
+    font-size: 21px;
+}
+.friends-open{
+    display: inline-block;
+    position: absolute;
+}
+.friends-area{
+    display: inline-block;
+    margin-left: 20px;
+    background: bisque;
+    height: 100%;
+    width: calc(100% - 25px);
+    margin-left: 25px;
+    padding: 10px;
+}
+
+.friends-top{
+    margin-bottom: 15px;
+}
+
+.friends-top > *{
+    display: block;
+    margin: auto;
+}
+
+.friends-content{
+    border-top: 1px black solid;
+}
+
+.friends-content > ul{
+    padding: 10px;
+}
+
+.friends-content > ul > li{
+    list-style: none;
+    padding: 5px;
+}
+
+.friends-content > ul > li:hover{
+    cursor: pointer;
+    background-color: var(--colorYellow);
+}
+/*//////////////////////////////////////////////////*/
+/*Login*/
+
+.logSubBtn{
+    color:white;
+    background-color: limegreen;
+    font-size: 16px;
+    width:100px;
+    height:30px;
+    border-radius: 10px;
+    border:0px;
+
+}
+.email-container{
+    background-color: red;
+}
+.logSubBtn:hover{
+    background-color: #29bc29;
+}
+
+.logCancelBtn{
+    color:white;
+    background-color: #dc3b3b;
+    font-size: 16px;
+    width:100px;
+    height:30px;
+    border-radius: 10px;
+    border:0px;
+
+
+}
+.logCancelBtn:hover{
+    background-color: #cc2c2c;
+}
+
+.login{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  
+}
+.forgotPasswordBtn{
+    margin-left: 75%;
+    text-decoration: none;
+    color: black;
+    font-style: italic;
+}
+.forgotPasswordBtn:hover{
+    text-decoration: underline;
+}
+.loginFields{
+    width: 500px;
+    height:300px;
+    padding:5%;
+    padding-top:1%;
+    margin:6%;
+    border-radius: 10px;
+    margin-top:10%;
+    background-color: lightgoldenrodyellow;
+}
+.loginFields > h1{
+    text-align: center;
+    background-color: lightgoldenrodyellow;
+}
+/*//////////////////////////////////////////////////*/
+
+/*Register*/
 .button-container{
     display: flex;
     flex-direction: row;
@@ -127,4 +333,63 @@ h1{
 .regFields > h1{
     text-align: center;
     background-color: lightgoldenrodyellow;
+}
+
+/*///////////////////////////////////////////////////////////////*/
+/*MyProfile*/
+
+.profEdBtn{
+    color:white;
+    background-color: limegreen;
+    font-size: 16px;
+    width:100px;
+    height:30px;
+    border-radius: 10px;
+    border:0px;
+
+}
+.profEdBtn:hover{
+    background-color: #29bc29;
+}
+.myProfile{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  
+}
+.profileFields{
+    width: 500px;
+    height:300px;
+    padding:5%;
+    padding-top:1%;
+    margin:6%;
+    border-radius: 10px;
+    margin-top:10%;
+    background-color: lightgoldenrodyellow;
+}
+.profileFields > h1{
+    text-align: center;
+    background-color: lightgoldenrodyellow;
+}
+/*///////////////////////////////////////////////////////////////*/
+.logoutFields{
+    width: 500px;
+    height:300px;
+    padding:5%;
+    padding-top:1%;
+    margin:6%;
+    border-radius: 10px;
+    margin-top:10%;
+    background-color: lightgoldenrodyellow;
+
+}
+.closeLogoutModal{
+    background-color: none;
+}
+.logoutModalContent > p{
+    text-align: center;
+    background-color: lightgoldenrodyellow;
+}
+.logoutModalContent > p{
+    margin:25%;
 }
