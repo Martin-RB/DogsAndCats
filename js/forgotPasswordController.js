@@ -5,8 +5,40 @@ define(function(require){
     var data = null;
 
     // Fields
-    var username_ = null;
-    var password_ = null;
+    var emailInput = null;
+    var regCancelBtn = null;
+    var regSubBtn = null;
+
+    var findFields = function(){
+        emailInput = container.find("#emailInput");
+        regCancelBtn = container.find("#regCancelBtn");
+        regSubBtn = container.find("#regSubBtn");
+    }
+
+    var setEvents = function(){
+        regCancelBtn.click(function(){
+            navigation.popScreen();
+        });
+        regSubBtn.click(function(){
+            $.ajax({
+                type: "post",
+                url: connDir + "user/forgot",
+                data: {email: emailInput.val()},
+                dataType: "json",
+                complete: function(r){
+                    if(r.statusText == "OK"){
+                        alert("Mail has been sent! Please check on the inbox or junk mails");
+                        navigation.popScreen();
+                    }
+                    else{
+                        alert("Error: " + r.statusText);
+                        console.log(r);
+                        navigation.popScreen();
+                    }
+                }
+            })
+        });
+    }
 
 
     // Screen funcs
@@ -27,7 +59,8 @@ define(function(require){
     
     publics.draw = function(){
         container.load("screens/forgotPassword.html", function(){
-
+            findFields();
+            setEvents();
         });
         return this;
     };

@@ -2,13 +2,13 @@
   <div class="navbar">
     <div class="dropdown">
       <button class="dropbtn">
-        All
+        Random
         <!-- <i class="fa fa-caret-down"></i> -->
       </button>
       <div class="dropdown-content">
-        <a href="#">Random Mixed</a>
-        <a href="#">Random Dogs</a>
-        <a href="#">Random Cats</a>
+        <a id="random_mixed_">Random Mixed</a>
+        <a id="random_dogs_">Random Dogs</a>
+        <a id="random_cats_">Random Cats</a>
       </div>
     </div>
     <div class="dropdown">
@@ -17,10 +17,22 @@
         <!-- <i class="fa fa-caret-down"></i> -->
       </button>
       <div class="dropdown-content">
-        <a href="#">Favorite Mixed</a>
-        <a href="#">Favorite Dogs</a>
-        <a href="#">Favorite Cats</a>
+        <a id="favorite_mixed_">Favorite Mixed</a>
+        <a id="favorite_dogs_">Favorite Dogs</a>
+        <a id="favorite_cats_">Favorite Cats</a>
       </div>
+    </div>
+    <div class="dropdown right">
+      <button class="dropbtn" id="login">
+        Login
+        <!-- <i class="fa fa-caret-down"></i> -->
+      </button>
+    </div>
+    <div class="dropdown right">
+      <button class="dropbtn" id="register">
+        Register
+        <!-- <i class="fa fa-caret-down"></i> -->
+      </button>
     </div>
   </div>
 
@@ -151,6 +163,6 @@
   </div>
   <div class="petspace" id="petSpace"></div>
   <div>
-    <input type="button" class="regSubBtn shuffleBtn " value="Shuffle" />
+    <input type="button" class="regSubBtn shuffleBtn" id="reroll_" value="Reroll" />
   </div>
 </div>

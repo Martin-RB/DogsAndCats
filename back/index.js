@@ -5,6 +5,7 @@ let mail = require("nodemailer");
 let md5 = require("md5");
 let cookies = require("cookie-parser");
 let request = require("request");
+var cors = require('cors');
 
 // Routes
 var user = require("./user");
@@ -12,6 +13,8 @@ var users = require("./users");
 var images = require("./images");
 
 var app = express();
+
+app.use(cors({credentials: true, origin: "http://localhost"}));
 
 // friend_solicitude.status = 0 Pending
 // friend_solicitude.status = 1 Accepted
@@ -35,7 +38,6 @@ conn.connect(function(err){
 // Body parser config
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 
 
 app.listen(6969, function(e){
@@ -71,11 +73,25 @@ var inputErrorStatus = function(res){
 
 
 var obj = {mysql: conn, mailer: mail, l: functionBundle, md5: md5, 
-    processErrorStatus: processErrorStatus, inputErrorStatus: inputErrorStatus, request: request};
+    processErrorStatus: processErrorStatus, inputErrorStatus: inputErrorStatus, request: request,
+    galletas: cookies};
 
-app.use("/user", user(express.Router(), obj));
-app.use("/users", users(express.Router(), obj));
-app.use("/images", images(express.Router(), obj));
+// Cookie parser config
+let userRouter = express.Router();
+let usersRouter = express.Router();
+let imagesRouter = express.Router();
+
+userRouter.use(cookies());
+usersRouter.use(cookies());
+imagesRouter.use(cookies());
+
+userRouter.use(cors({credentials: true, origin: "http://localhost"}));
+usersRouter.use(cors({credentials: true, origin: "http://localhost"}));
+imagesRouter.use(cors({credentials: true, origin: "http://localhost"}));
+
+app.use("/user", user(userRouter, obj));
+app.use("/users", users(usersRouter, obj));
+app.use("/images", images(imagesRouter, obj));
 /* 
 app.get("/user", function(req, res){
     res.send("asd");
