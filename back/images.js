@@ -209,6 +209,13 @@ module.exports = function(router, b){
             return;
         }
 
+        if(idActualUser === undefined){
+            b.l.cerr("No user");
+            res.status(403);
+            res.send("You must be logged in before liking a photo");
+            return;
+        }
+
         let type = body.type;
         if(type !== "dog" && type !== "cat"){
             b.l.cerr("Invalid input", body);

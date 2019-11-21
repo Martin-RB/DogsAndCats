@@ -43,11 +43,11 @@ define(function(require){
             data: {username: username, password: passowrd},
             complete: function(r){
                 if(r.statusText == "OK"){
-                    alert("Bienvenido");
+                    alert("Wellcome back");
                     navigation.goHome();
                 }
                 else{
-                    alert("Login error. Contact admin");
+                    alert("Error: " + r.statusText);
                     console.log(r);
                 }
             }

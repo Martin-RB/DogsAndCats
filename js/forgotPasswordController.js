@@ -20,6 +20,7 @@ define(function(require){
             navigation.popScreen();
         });
         regSubBtn.click(function(){
+            loading(true);
             $.ajax({
                 type: "post",
                 url: connDir + "user/forgot",
@@ -28,6 +29,7 @@ define(function(require){
                 complete: function(r){
                     if(r.statusText == "OK"){
                         alert("Mail has been sent! Please check on the inbox or junk mails");
+                        loading(false);
                         navigation.popScreen();
                     }
                     else{

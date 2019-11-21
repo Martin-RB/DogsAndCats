@@ -1,4 +1,32 @@
 <div style="height: 100%;">
+  <div class="sidenav-container " style="display:none" id="sidenav_container">
+    <i class="fas fa-window-close" id="sidenav_close" style="font-size: 31px;margin: 12px;"></i>
+    <div class="sidenav">
+      <button class="sidenav-dropdown-btn">
+        All
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-container" id="side_ran">
+        <a id="side_ran_mix">Random Mixed</a>
+        <a id="side_ran_dog">Random Dogs</a>
+        <a id="side_ran_cat">Random Cats</a>
+      </div>
+      <button class="sidenav-dropdown-btn">
+        My Favorites
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-container" id="side_fav">
+        <a id="side_fav_mix">Favorite Mixed</a>
+        <a id="side_fav_dog">Favorite Dogs</a>
+        <a id="side_fav_cat">Favorite Cats</a>
+      </div>
+      <button class="sidenav-btn" id="side_login">Login</button>
+      <button class="sidenav-btn" id="side_register">Register</button>
+      <button class="sidenav-btn" id="side_profile">My Profile</button>
+      <button class="sidenav-btn" id="side_logout">Logout</button>
+    </div>
+  </div>
+
   <div class="navbar">
     <div class="dropdown">
       <button class="dropbtn">
@@ -12,7 +40,7 @@
       </div>
     </div>
     <div class="dropdown">
-      <button class="dropbtn">
+      <button class="dropbtn" id="favs">
         My Favorites
         <i class="fa fa-caret-down"></i>
       </button>
@@ -31,6 +59,18 @@
     <div class="dropdown right">
       <button class="dropbtn" id="register">
         Register
+        <!-- <i class="fa fa-caret-down"></i> -->
+      </button>
+    </div>
+    <div class="dropdown right">
+      <button class="dropbtn" id="logout">
+        Logout
+        <!-- <i class="fa fa-caret-down"></i> -->
+      </button>
+    </div>
+    <div class="dropdown right">
+      <button class="dropbtn" id="myProfile">
+        My Profile
         <!-- <i class="fa fa-caret-down"></i> -->
       </button>
     </div>

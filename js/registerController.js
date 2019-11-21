@@ -17,6 +17,7 @@ define(function(require){
             navigation.popScreen();
         })
         regSubBtn.click(function(){
+            loading(true);
             $.ajax({
                 type: "post",
                 url: connDir + "user/",
@@ -24,6 +25,7 @@ define(function(require){
                 complete: function(r){
                     if(r.statusText == "OK"){
                         alert("Done! Check your email for further instructions. Check on junk mail in case you cant find it");
+                        loading(false);
                         navigation.popScreen();
                     }
                     else{

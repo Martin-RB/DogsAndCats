@@ -6,11 +6,6 @@ var main = function(window, document, undefined){
     var init = function(){
         $.ajaxSetup({
             xhrFields: {
-                // The 'xhrFields' property sets additional fields on the XMLHttpRequest.
-                // This can be used to set the 'withCredentials' property.
-                // Set the value to 'true' if you'd like to pass cookies to the server.
-                // If this is enabled, your server must respond with the header
-                // 'Access-Control-Allow-Credentials: true'.
                 withCredentials: true
             },
             
@@ -35,11 +30,24 @@ var main = function(window, document, undefined){
             console.log("a");
             if(navigation.hasLeft()){
                 $(".back-btn").show();
+                $("#burger_btn").hide();
             }
             else{
                 $(".back-btn").hide();
+                $("#burger_btn").show();
             }
         });
+
+        var loadingScreen = $(".loadingScreen");
+
+        window.loading = function(bool){
+            if(bool == true){
+                loadingScreen.show();
+            }
+            else{
+                loadingScreen.hide();
+            }
+        }
 
         window.connDir = "http://localhost:6969/"
 

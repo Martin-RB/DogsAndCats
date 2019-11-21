@@ -3,7 +3,7 @@ module.exports = function(router, b){
     let conn = b.mysql;
 
     router.get("/", function(req, res, next){
-        let id = res.cookies["idUser"];
+        let id = req.cookies["idUser"];
         if(id === undefined){
             b.l.cerr("Invalid input", res.cookies);
             b.inputErrorStatus(res);
@@ -22,17 +22,16 @@ module.exports = function(router, b){
 
             var finalResult = [];
             result.forEach(r =>{
-                finalResult.push({
-                    id: r.idUsers,
+                finalResult = {
                     name: r.name,
                     email: r.email
-                });
+                };
             });
             res.json(finalResult);
         });
     });
 
-    router.get("/:id", function(req, res, next){
+    /* router.get("/:id", function(req, res, next){
         let params = req.params;
         if(params.id === undefined){
             b.l.cerr("Invalid input", params.id);
@@ -60,7 +59,7 @@ module.exports = function(router, b){
             });
             res.json(finalResult);
         });
-    });
+    }); */
 
     router.post("/login", function(req, res){
         let body = req.body;
@@ -95,6 +94,14 @@ module.exports = function(router, b){
             res.cookie("idUser", result[0].idUsers);
             res.send();
         });
+    });
+
+    router.get("/login", function(req, res){
+        res.send(req.cookies["idUser"] !== undefined);
+    });
+
+    router.delete("/login", function(req, res){
+        res.clearCookie("idUser").send();
     });
 
     router.post("/", function(req, res){
@@ -147,9 +154,9 @@ module.exports = function(router, b){
     });
 
 
-    router.put("/:id", function(req, res){
+    router.put("/", function(req, res){
         let body = req.body;
-        let params = req.params;
+        let id = req.cookies["idUser"];
         let sql = "";
         let sqlFragments = "";
         let sql_params = [];
@@ -160,7 +167,7 @@ module.exports = function(router, b){
             return;
         }
         
-        if(params.id === undefined || params.id === ""){
+        if(id === undefined){
             b.l.cerr("Invalid input", body);
             b.inputErrorStatus(res);
             res.send();
@@ -192,7 +199,6 @@ module.exports = function(router, b){
             return;
         }
 
-        let id = params.id;
         sql_params.push(id);
         sql = `update users set ${sqlFragments} where idUsers = ?`;
 

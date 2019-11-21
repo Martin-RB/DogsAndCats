@@ -92,7 +92,7 @@ imagesRouter.use(cors({credentials: true, origin: "http://localhost"}));
 app.use("/user", user(userRouter, obj));
 app.use("/users", users(usersRouter, obj));
 app.use("/images", images(imagesRouter, obj));
-/* 
+/*
 app.get("/user", function(req, res){
     res.send("asd");
 });
