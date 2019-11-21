@@ -38,49 +38,102 @@ body{
 .content{
     height: calc(100vh - var(--headerHeight));
 }
-
-
-/*Login*/
-.login{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding: 20px;
-}
-
-.fieldSet{
-    border: 1px black solid;
-    border-radius: 10px;
-    padding: 20px;
-}
-
-.fieldSet > *{
-    margin-bottom: 15px;
-}
-
-/*Register*/
-h1{
-    font-size: 48px;
-}
-.email-container{
+/*//////////////////////////////////////////////////*/
+/*General*/
+.email-container,.password-container,.username-container{
     display:flex;
     flex-direction: column;
     justify-content: space-around;
 }
-.email{
-    font-size: 28px;
-    background-color: lightgoldenrodyellow;
-}
-.emailLabel{
-    font-size: 36px;
-}
-.emailInput{
+.emailInput,.passwordInput{
     font-size: 25px;
     border-style:solid;
     background-color: white;
     border-width: 1px;
 }
+.emailShow,.passwordShow,.usernameShow{
+    font-size: 25px;
+    border-style:solid;
+    background-color: white;
+    border-width: 1px;
+}
+/* .email,.password,.username{
+    font-size: 28px;
+    background-color: lightgoldenrodyellow;
+} */
+.emailLabel,.passwordLabel,.usernameLabel{
+    font-size: 36px;
+}
 
+/*//////////////////////////////////////////////////*/
+
+/*//////////////////////////////////////////////////*/
+/*Login*/
+
+.logSubBtn{
+    color:white;
+    background-color: limegreen;
+    font-size: 16px;
+    width:100px;
+    height:30px;
+    border-radius: 10px;
+    border:0px;
+
+}
+.email-container{
+    background-color: red;
+}
+.logSubBtn:hover{
+    background-color: #29bc29;
+}
+
+.logCancelBtn{
+    color:white;
+    background-color: #dc3b3b;
+    font-size: 16px;
+    width:100px;
+    height:30px;
+    border-radius: 10px;
+    border:0px;
+
+
+}
+.logCancelBtn:hover{
+    background-color: #cc2c2c;
+}
+
+.login{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  
+}
+.forgotPasswordBtn{
+    margin-left: 75%;
+    text-decoration: none;
+    color: black;
+    font-style: italic;
+}
+.forgotPasswordBtn:hover{
+    text-decoration: underline;
+}
+.loginFields{
+    width: 500px;
+    height:300px;
+    padding:5%;
+    padding-top:1%;
+    margin:6%;
+    border-radius: 10px;
+    margin-top:10%;
+    background-color: lightgoldenrodyellow;
+}
+.loginFields > h1{
+    text-align: center;
+    background-color: lightgoldenrodyellow;
+}
+/*//////////////////////////////////////////////////*/
+
+/*Register*/
 .button-container{
     display: flex;
     flex-direction: row;
@@ -97,7 +150,6 @@ h1{
     height:30px;
     border-radius: 10px;
     border:0px;
-
 }
 .regSubBtn:hover{
     background-color: #29bc29;
@@ -138,6 +190,65 @@ h1{
 .regFields > h1{
     text-align: center;
     background-color: lightgoldenrodyellow;
+}
+
+/*///////////////////////////////////////////////////////////////*/
+/*MyProfile*/
+
+.profEdBtn{
+    color:white;
+    background-color: limegreen;
+    font-size: 16px;
+    width:100px;
+    height:30px;
+    border-radius: 10px;
+    border:0px;
+
+}
+.profEdBtn:hover{
+    background-color: #29bc29;
+}
+.myProfile{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  
+}
+.profileFields{
+    width: 500px;
+    height:300px;
+    padding:5%;
+    padding-top:1%;
+    margin:6%;
+    border-radius: 10px;
+    margin-top:10%;
+    background-color: lightgoldenrodyellow;
+}
+.profileFields > h1{
+    text-align: center;
+    background-color: lightgoldenrodyellow;
+}
+/*///////////////////////////////////////////////////////////////*/
+.logoutFields{
+    width: 500px;
+    height:300px;
+    padding:5%;
+    padding-top:1%;
+    margin:6%;
+    border-radius: 10px;
+    margin-top:10%;
+    background-color: lightgoldenrodyellow;
+
+}
+.closeLogoutModal{
+    background-color: none;
+}
+.logoutModalContent > p{
+    text-align: center;
+    background-color: lightgoldenrodyellow;
+}
+.logoutModalContent > p{
+    margin:25%;
 }
 
 /*Home*/
@@ -237,10 +348,10 @@ h1{
 .friends-menu{
     height: 80%;
     position: fixed;
-    right: -16vw;   
+    right: -16vw;  
     margin-top: 10px;
     /* background: red; */
-    width: calc(16vw + 25px);
+    width: 19vw;
     font-size: 21px;
 }
 .friends-open{
@@ -251,15 +362,21 @@ h1{
     display: inline-block;
     margin-left: 20px;
     background: bisque;
+    padding: 10px;
     height: 100%;
     width: calc(100% - 25px);
     margin-left: 25px;
 }
+.friends-area > p{
+    text-decoration: underline;
+}
 
 .friends-top{
     margin-bottom: 15px;
+    margin-top: 10px;
+    border-top: 1px black dashed;
+    padding: 10px;
 }
-
 .friends-top > *{
     display: block;
     margin: auto;
@@ -281,4 +398,129 @@ h1{
 .friends-content > ul > li:hover{
     cursor: pointer;
     background-color: var(--colorYellow);
+}
+
+.notifications{
+    height:100px;
+    overflow-y: scroll;
+    background-color: #ffecd6;
+}
+
+.notifications > *{
+    display:block;
+}
+
+.not-item{
+    margin-bottom: 16px;
+    font-size: 0.7em;
+}
+.not-item:hover{
+    cursor: pointer;
+    background-color: var(--colorYellow);
+}
+
+
+.shuffleBtn{
+    margin: auto;
+    display: block;
+    background-color: var(--colorRed);
+}
+.shuffleBtn:hover{
+    background-color: var(--colorBrown);
+}
+
+.navbar {
+    overflow: hidden;
+    background-color: #f58b54;
+  }
+  
+  .navbar a {
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  .dropdown {
+    float: left;
+    overflow: hidden;
+    width: 25%;
+  }
+  
+  .dropdown .dropbtn {
+    font-size: 16px;  
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    width: 100%;
+    
+    
+  }
+  
+  .navbar a:hover, .dropdown:hover .dropbtn {
+    background-color: #a34a28;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fffdea;
+  width: 25%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
+     z-index: 1;
+  }
+  
+  .dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px  16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+.decide{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.decideBtn:hover{
+    cursor:pointer;
+}
+
+.burger-btn{
+    position: absolute;
+    top: 0;
+    left: 3%;
+    display: inline-block;
+}
+
+@media (max-width: 800px){
+    .burger-btn{
+        display: initial;
+    }
+}
+
+@media (min-width: 1024px){
+    .burger-btn{
+        display: none;
+    }
+}
+@media (max-width: 767px){
+    .navbar{
+        display: none;
+    }
 }

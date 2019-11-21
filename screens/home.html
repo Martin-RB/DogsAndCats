@@ -1,39 +1,156 @@
 <div>
-    <nav class="h-top">
-        <div class="h-topDrop" id="">
-            Random
-        </div>
-        <div class="h-topDrop" id="">
-            My Favorites
-        </div>
-        <div class="h-topDrop--acc">
-            <a class="h-topDrop h-topDrop--login" id="login_btn">
-                Login
-            </a>
-            <a class="h-topDrop h-topDrop--reg" id="register_btn">
-                Register
-            </a>
-        </div>
-    </nav>
-    <div class="friends-menu" id="friend_menu">
-        <div class="friends-open" id="friends_open"><i class="fas fa-user-friends"></i></div>
-        <div class="friends-area">
-            <div class="friends-top">
-                <input type="text" placeholder="Busca amiguis...">
-                <input type="button" value="Buscar">
-            </div>
-            <div class="friends-content">
-                <ul>
-                    <li>asd</li>
-                    <li>asd2</li>
-                    <li>asd3</li>
-                    <li>asd69</li>
-                </ul>
-            </div>
-        </div>
+  <div class="navbar">
+    <div class="dropdown">
+      <button class="dropbtn">
+        All
+        <!-- <i class="fa fa-caret-down"></i> -->
+      </button>
+      <div class="dropdown-content">
+        <a href="#">Random Mixed</a>
+        <a href="#">Random Dogs</a>
+        <a href="#">Random Cats</a>
+      </div>
     </div>
-    <div class="petspace" id="petSpace">
+    <div class="dropdown">
+      <button class="dropbtn">
+        My Favorites
+        <!-- <i class="fa fa-caret-down"></i> -->
+      </button>
+      <div class="dropdown-content">
+        <a href="#">Favorite Mixed</a>
+        <a href="#">Favorite Dogs</a>
+        <a href="#">Favorite Cats</a>
+      </div>
+    </div>
+  </div>
 
+  <div class="friends-menu" id="friend_menu">
+    <div class="friends-open" id="friends_open">
+      <i class="fas fa-user-friends"></i>
     </div>
-    
+    <div class="friends-area">
+      <p>Notifications</p>
+      <div class="notifications">
+        <div>
+          <div>
+            <span class="not-item">Clifford has sent you a friend request</span>
+          </div>
+          <div class="decide">
+            <div>
+              <span class="decideBtn"><i class="fas fa-check"></i></span>
+            </div>
+            <div>
+              <span class="decideBtn"><i class="fas fa-times"></i></span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div>
+            <span class="not-item">DogWhisperer has rejected your request</span>
+          </div>
+        </div>
+        <div>
+          <div>
+            <span class="not-item">Alfa1 has accepted your request</span>
+          </div>
+        </div>
+        <div>
+          <div>
+            <span class="not-item">Gardfield has accepted your request</span>
+          </div>
+        </div>
+        <div>
+          <div>
+            <span class="not-item">Dog1 has rejected your request</span>
+          </div>
+        </div>
+
+        <div>
+          <div>
+            <span class="not-item">Dog2 has sent you a friend request</span>
+          </div>
+          <div class="decide">
+            <div>
+              <span class="decideBtn"><i class="fas fa-check"></i></span>
+            </div>
+            <div>
+              <span class="decideBtn"><i class="fas fa-times"></i></span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div>
+            <span class="not-item">Dog3 has accepted your request</span>
+          </div>
+        </div>
+        <div>
+          <div>
+            <span class="not-item">Cat1 has rejected your request</span>
+          </div>
+        </div>
+        <div>
+          <div>
+            <span class="not-item">Cat2 has sent you a friend request</span>
+          </div>
+          <div class="decide">
+            <div>
+              <span class="decideBtn"><i class="fas fa-check"></i></span>
+            </div>
+            <div>
+              <span class="decideBtn"><i class="fas fa-times"></i></span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div>
+            <span class="not-item">Cat3 has accepted your request</span>
+          </div>
+        </div>
+        <div>
+          <div>
+            <span class="not-item">Ferret1 has rejected your request</span>
+          </div>
+        </div>
+        <div>
+          <div>
+            <span class="not-item">Ferret2 has sent you a friend request</span>
+          </div>
+          <div class="decide">
+            <div>
+              <span><i class="fas fa-check"></i></span>
+            </div>
+            <div>
+              <span><i class="fas fa-times"></i></span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div>
+            <span class="not-item">Ferret3 has accepted your request</span>
+          </div>
+        </div>
+        <div>
+          <div>
+            <span class="not-item">Ferret4 has rejected your request</span>
+          </div>
+        </div>
+      </div>
+      <div class="friends-top">
+        <input type="text" placeholder="Busca amiguis..." />
+        <input type="button" value="Buscar" />
+      </div>
+      <div class="friends-content">
+        <ul>
+          <li>asd</li>
+          <li>asd2</li>
+          <li>asd3</li>
+          <li>asd69</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="petspace" id="petSpace"></div>
+  <div>
+    <input type="button" class="regSubBtn shuffleBtn " value="Shuffle" />
+  </div>
 </div>

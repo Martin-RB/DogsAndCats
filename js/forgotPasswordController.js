@@ -26,7 +26,7 @@ define(function(require){
     };
     
     publics.draw = function(){
-        container.load("screens/login.html", function(){
+        container.load("screens/forgotPassword.html", function(){
 
         });
         return this;
