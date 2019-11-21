@@ -189,7 +189,8 @@ define(function(require){
             }
             else if (friendState == 1){
                 friendState = 0;
-                friend_menu.animate({right: "-16vw"}, 200);
+                var width = friend_menu.width()/$(window).width()*100 - 3;
+                friend_menu.animate({right: `-${width}vw`}, 200);
             }
         });
 
