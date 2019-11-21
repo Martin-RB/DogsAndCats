@@ -1,28 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" href="css/index.css">
-        <script src="https://kit.fontawesome.com/f3aa6f0623.js" crossorigin="anonymous"></script>
-        <title>Dogs&Cats</title>
-    </head>
-    <body>
-        <div class="header">
-            <div class="burger-btn">
-                        <i class="fas fa-bars"></i>
-                    </div>
-            <div class="back-btn">
-                <i class="fas fa-arrow-left"></i>
-            </div>
-            Dogs&Cats
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="css/index.css" />
+    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
+    <script
+      src="https://kit.fontawesome.com/f3aa6f0623.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Dogs&Cats</title>
+  </head>
+  <body>
+    <div class="header">
+      <div class="sidenav-container " style="display:none" id="sidebar_container">
+        <i class="fas fa-window-close " onclick="closeSidenav()"></i>
+        <div class="sidenav">
+          <button class="sidenav-dropdown-btn">
+            All
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-container">
+            <a href="#">Random Mixed</a>
+            <a href="#">Random Dogs</a>
+            <a href="#">Random Cats</a>
+          </div>
+          <button class="sidenav-dropdown-btn">
+            My Favorites
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-container">
+            <a href="#">Favorite Mixed</a>
+            <a href="#">Favorite Dogs</a>
+            <a href="#">Favorite Cats</a>
+          </div>
+          <button class="sidenav-dropdown-btn">My Profile</button>
+          <button class="sidenav-dropdown-btn">Logout</button>
         </div>
-        <div class="content">
-        </div>
-        <script src="js/lib/jq.js"></script>
-        <script src="js/lib/requirejs.js"></script>
-        <script src="js/Navigation.js"></script>
-        <script src="js/main.js"></script>
-    </body>
+      </div>
+
+      <div class="back-btn">
+        <i class="fas fa-arrow-left"></i>
+      </div>
+      <i class="fas fa-bars burger-btn" id="burger_btn" onclick="openSidenav()"></i>
+      Dogs&Cats
+    </div>
+
+    <div class="content"></div>
+    
+    <!-- scripts to open and close the sidenav -->
+    <script>
+      function w3_open() {
+        document.getElementById("sidenav_container").style.display = "block";
+      }
+
+      function closeSidenav() {
+        document.getElementById("sidenav_container").style.display = "none";
+      }
+      var dropdown = document.getElementsByClassName("dropdown-btn");
+      var i;
+
+      for (i = 0; i < dropdown.length; i++) {
+        dropdown[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var dropdownContent = this.nextElementSibling;
+          if (dropdownContent.style.display === "block") {
+            dropdownContent.style.display = "none";
+          } else {
+            dropdownContent.style.display = "block";
+          }
+        });
+      }
+    </script>
+    <script src="js/lib/jq.js"></script>
+    <script src="js/lib/requirejs.js"></script>
+    <script src="js/Navigation.js"></script>
+    <script src="js/main.js"></script>
+  </body>
 </html>

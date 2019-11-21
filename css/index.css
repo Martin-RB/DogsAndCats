@@ -1,3 +1,4 @@
+
 body{
     --titleFontSize: 2.25em;
     --headerHeight: 60px;
@@ -279,6 +280,10 @@ body{
     padding: 0 5px;
     display: inline-block;
 }
+.action-space{
+    overflow-y: scroll;
+    height: calc(100vh - 110px);
+}
 .petspace{
     display: flex;
     flex-direction: row;
@@ -344,13 +349,11 @@ body{
     margin-right: auto;
 
 }
-
 .friends-menu{
     height: 80%;
     position: fixed;
     right: -16vw;  
     margin-top: 10px;
-    /* background: red; */
     width: 19vw;
     font-size: 21px;
 }
@@ -432,6 +435,7 @@ body{
 .navbar {
     overflow: hidden;
     background-color: #f58b54;
+    height: 50px;
   }
   
   .navbar a {
@@ -449,7 +453,7 @@ body{
     width: 25%;
   }
   
-  .dropdown .dropbtn {
+  .dropdown .dropbtn ,.navbarBtn{
     font-size: 16px;  
     border: none;
     outline: none;
@@ -458,10 +462,8 @@ body{
     background-color: inherit;
     font-family: inherit;
     width: 100%;
-    
-    
   }
-  
+
   .navbar a:hover, .dropdown:hover .dropbtn {
     background-color: #a34a28;
   }
@@ -471,7 +473,7 @@ body{
     position: absolute;
     background-color: #fffdea;
   width: 25%;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); 
      z-index: 1;
   }
   
@@ -501,26 +503,134 @@ body{
     cursor:pointer;
 }
 
-.burger-btn{
+/*//////////////////////////////*/
+/*Sidenav*/
+
+.burger-menu{
+    height: 80%;
+    position: fixed;
+    right: -16vw;  
+    margin-top: 10px;
+    width: 19vw;
+    font-size: 21px;
+}
+.burger-open{
+    display: inline-block;
     position: absolute;
-    top: 0;
+ }
+ .burger-btn{
+  
+    position: absolute;
+    top: 10px;
     left: 3%;
     display: inline-block;
 }
 
-@media (max-width: 800px){
-    .burger-btn{
+.sidenav-container{
+    display:block;
+    text-align:center;
+    border:none;
+    white-space:normal;
+    float:none;
+    outline:0;
+    height:100%;
+    width:200px;
+    background-color:var(--colorRed);
+    position:fixed!important;
+    z-index:1;
+    overflow:auto;
+}
+
+.side-drop{
+    background-color:var(--colorRed);
+    font-size: 20px;  
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    width: 100%;
+    width:100%;
+    text-align:left;
+    padding:8px 16px;
+}
+.sidenav{
+    background-color: var(--colorRed);
+}
+.sidenav a, .sidenave-dropdown-btn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: white;
+    display: block;
+    border: none;
+    background: none;
+    width:100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    margin-bottom: 5%;
+    height:50px
+  }
+.sidenav-dropdown-btn{
+    margin-bottom: 10%;
+    text-decoration: none;
+}
+
+.dropdown-container {
+  display: none;
+  padding-left: 8px;
+  background-color: #fffdea;
+}
+.dropdown-container a{
+    color: black;
+}
+.dropdown-container a:hover{
+    background-color:  #ddd;
+}
+/* Media Queries*/
+@media (max-width: 426px){
+    #burger_btn{
         display: initial;
+    }
+    .navbar{
+        display: none;
+    }
+    .action-space{
+        height: calc(100vh - 60px);
+    }
+    .pet-el{
+        width: 100%;
+    }
+
+    /*Esta Madre*/
+    /* .friends-menu{
+        height: 80%;
+        position: fixed;
+        right: calc("-16vw + 15px");  
+        margin-top: 10px;
+        width: 19vw;
+        font-size: 21px;
+    } */
+}
+
+@media (max-width: 1023px) and (min-width:427px){
+    #burger_btn{
+        display: initial;
+    }
+    .navbar{
+        display: none;
+    }
+    .action-space{
+        height: calc(100vh - 60px);
+    }
+    .pet-el{
+        width:40%;
     }
 }
 
 @media (min-width: 1024px){
-    .burger-btn{
+    #burger_btn{
         display: none;
     }
-}
-@media (max-width: 767px){
-    .navbar{
-        display: none;
-    }
+    
 }
