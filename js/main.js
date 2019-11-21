@@ -4,6 +4,19 @@ var main = function(window, document, undefined){
     });
 
     var init = function(){
+        $.ajaxSetup({
+            xhrFields: {
+                // The 'xhrFields' property sets additional fields on the XMLHttpRequest.
+                // This can be used to set the 'withCredentials' property.
+                // Set the value to 'true' if you'd like to pass cookies to the server.
+                // If this is enabled, your server must respond with the header
+                // 'Access-Control-Allow-Credentials: true'.
+                withCredentials: true
+            },
+            
+        })
+
+
         requirejs.config({
             baseUrl: 'js'
         });
@@ -15,6 +28,9 @@ var main = function(window, document, undefined){
         require(["homeController"], function(HomeController){
             navigation.pushScreen(HomeController);
         });
+        /* require(["loginController"], function(HomeController){
+            navigation.pushScreen(HomeController);
+        }); */
         navigation.setOnchange(function(){
             console.log("a");
             if(navigation.hasLeft()){
@@ -24,6 +40,8 @@ var main = function(window, document, undefined){
                 $(".back-btn").hide();
             }
         });
+
+        window.connDir = "http://localhost:6969/"
 
         $(".back-btn").click(function(){
             navigation.popScreen();

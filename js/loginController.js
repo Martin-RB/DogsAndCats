@@ -5,8 +5,54 @@ define(function(require){
     var data = null;
 
     // Fields
-    var username_ = null;
-    var password_ = null;
+    var usernameInput = null;
+    var passwordInput = null;
+    var forgotPasswordBtn = null;
+    var logCancelBtn = null;
+    var logSubBtn = null;
+
+
+    var findFields = function(){
+        usernameInput = container.find("#usernameInput");
+        passwordInput = container.find("#passwordInput");
+        forgotPasswordBtn = container.find("#forgotPasswordBtn");
+        logCancelBtn = container.find("#logCancelBtn");
+        logSubBtn = container.find("#logSubBtn");
+    }
+
+    var setEvents = function(){
+        forgotPasswordBtn.click(function(){
+            require(["forgotPasswordController"], function(ForgotPasswordController){
+                navigation.pushScreen(ForgotPasswordController);
+            })
+        });
+        logCancelBtn.click(function(){
+            navigation.popScreen();
+        });
+        logSubBtn.click(function(){
+            let username = usernameInput.val();
+            let password = passwordInput.val();
+            login(username, password);
+        });
+    }
+
+    var login = function(username, passowrd){
+        $.ajax({
+            type: "post",
+            url: connDir + "user/login",
+            data: {username: username, password: passowrd},
+            complete: function(r){
+                if(r.statusText == "OK"){
+                    alert("Bienvenido");
+                    navigation.goHome();
+                }
+                else{
+                    alert("Login error. Contact admin");
+                    console.log(r);
+                }
+            }
+        })
+    }
 
 
     // Screen funcs
@@ -27,7 +73,8 @@ define(function(require){
     
     publics.draw = function(){
         container.load("screens/login.html", function(){
-
+            findFields();
+            setEvents();
         });
         return this;
     };

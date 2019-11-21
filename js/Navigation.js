@@ -47,7 +47,7 @@ var Navigation = function(navigationContainer){
 		return this;
 	}
 
-	publics.goHome = function(){
+	publics.goHome = function(data){
 		for (var i = screenStack.length - 1; i >= 1; i--) {
 			publics.popScreen();
         }

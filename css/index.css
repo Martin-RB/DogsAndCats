@@ -80,9 +80,6 @@ body{
     border:0px;
 
 }
-.email-container{
-    background-color: red;
-}
 .logSubBtn:hover{
     background-color: #29bc29;
 }
@@ -450,6 +447,10 @@ body{
     float: left;
     overflow: hidden;
     width: 25%;
+  }
+  .dropdown.right{
+    float: right;
+    width: 10%;
   }
   
   .dropdown .dropbtn ,.navbarBtn{

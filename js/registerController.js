@@ -3,6 +3,37 @@ define(function(require){
     var container = null;
     var data = null;
 
+    var emailInput = null;
+    var regCancelBtn = null;
+    var regSubBtn = null;
+
+    var findFields = function(){
+        emailInput = container.find("#emailInput");
+        regCancelBtn = container.find("#regCancelBtn");
+        regSubBtn = container.find("#regSubBtn");
+    }
+    var setEvents = function(){
+        regCancelBtn.click(function(){
+            navigation.popScreen();
+        })
+        regSubBtn.click(function(){
+            $.ajax({
+                type: "post",
+                url: connDir + "user/",
+                data: {email: emailInput.val()},
+                complete: function(r){
+                    if(r.statusText == "OK"){
+                        alert("Done! Check your email for further instructions. Check on junk mail in case you cant find it");
+                        navigation.popScreen();
+                    }
+                    else{
+                        alert("Error: " + r.statusText);
+                    }
+                }
+            })
+        })
+    }
+
     publics.setContainer = function(cont){
         container = cont;
         return this;
@@ -20,7 +51,8 @@ define(function(require){
 
     publics.draw = function(){
         container.load("screens/register.html", function(){
-
+            findFields();
+            setEvents();
         });
         return this;
     };
