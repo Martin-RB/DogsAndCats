@@ -1,4 +1,3 @@
-
 body{
     --titleFontSize: 2.25em;
     --headerHeight: 60px;
@@ -556,7 +555,7 @@ body{
 .sidenav{
     background-color: var(--colorRed);
 }
-.sidenav a, .sidenave-dropdown-btn {
+.sidenav a, .sidenav-dropdown-btn {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;

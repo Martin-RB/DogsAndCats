@@ -14,7 +14,7 @@
   </head>
   <body>
     <div class="header">
-      <div class="sidenav-container " style="display:none" id="sidebar_container">
+      <div class="sidenav-container " style="display:none" id="sidenav_container">
         <i class="fas fa-window-close " onclick="closeSidenav()"></i>
         <div class="sidenav">
           <button class="sidenav-dropdown-btn">
@@ -51,14 +51,14 @@
     
     <!-- scripts to open and close the sidenav -->
     <script>
-      function w3_open() {
+      function openSidenav() {
         document.getElementById("sidenav_container").style.display = "block";
       }
 
       function closeSidenav() {
         document.getElementById("sidenav_container").style.display = "none";
       }
-      var dropdown = document.getElementsByClassName("dropdown-btn");
+      var dropdown = document.getElementsByClassName("sidenav-dropdown-btn");
       var i;
 
       for (i = 0; i < dropdown.length; i++) {
