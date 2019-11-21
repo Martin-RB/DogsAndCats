@@ -555,7 +555,7 @@ body{
 .sidenav{
     background-color: var(--colorRed);
 }
-.sidenav a, .sidenav-dropdown-btn {
+.sidenav a, .sidenav-dropdown-btn,.sidenav-btn {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
@@ -570,11 +570,9 @@ body{
     margin-bottom: 5%;
     height:50px
   }
-.sidenav-dropdown-btn{
-    margin-bottom: 10%;
-    text-decoration: none;
+.sidenav-dropdown-btn:hover,.sidenav-btn:hover{
+    background-color: var(--colorBrown);
 }
-
 .dropdown-container {
   display: none;
   padding-left: 8px;
@@ -600,6 +598,11 @@ body{
     .pet-el{
         width: 100%;
     }
+    .shuffleBtn{
+        height:50px;
+        width: 50%;
+        margin-bottom: 5%;
+    }
 
     /*Esta Madre*/
     /* .friends-menu{
@@ -624,6 +627,11 @@ body{
     }
     .pet-el{
         width:40%;
+    }
+    .shuffleBtn{
+        height:50px;
+        width: 50%;
+        margin-bottom: 5%;
     }
 }
 
