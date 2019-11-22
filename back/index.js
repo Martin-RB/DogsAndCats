@@ -14,7 +14,18 @@ var images = require("./images");
 
 var app = express();
 
-app.use(cors({credentials: true, origin: "http://localhost"}));
+app.use(cors(
+    {
+        credentials: true, 
+        origin: function(origin, callback){
+            if(origin == "http://104.197.82.238" || origin == "http://localhost"){
+                callback(null, true);
+            }
+            else{
+                callback(new Error("C H I N G A T U M A D R E"));
+            }
+        } 
+    }));
 
 // friend_solicitude.status = 0 Pending
 // friend_solicitude.status = 1 Accepted

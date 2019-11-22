@@ -74,6 +74,34 @@ module.exports = function(router, b){
         });
     });
 
+    router.get("/notifications", function(req, res){
+        let idActualUser = req.cookies["idUser"];
+        if(idActualUser === undefined){
+            b.l.cerr("You should be logged in", params.search);
+            b.inputErrorStatus(res);
+            res.send();
+            return;
+        }
+
+        let sql = "SELECT * FROM friend_solicitude f, users u WHERE f.idUsers = ? AND f.idUsers_dest = u.idUsers";
+        let sql_params = [idActualUser];
+        conn.query(sql, sql_params, function(err, result){
+            if(err){
+                b.f.cerr(err);
+                b.processErrorStatus(res);
+                res.send();
+                return;
+            }
+
+            let newResult = [];
+            result.forEach(el => {
+                newResult.push({
+                    
+                });
+            });
+        });
+    });
+
     // Make friend request
     router.post("/friends/", function(req, res){
         let idActualUser = req.cookies["idUser"];
@@ -96,7 +124,14 @@ module.exports = function(router, b){
         let sql_params = [idActualUser, body.id];
 
         conn.query(sql, sql_params, function(err, result){
-            
+            if(err){
+                b.f.cerr(err);
+                b.processErrorStatus(res);
+                res.send();
+                return;
+            }
+
+            res.send();
         })
     });
 
@@ -163,7 +198,7 @@ module.exports = function(router, b){
         else{
             res.status(500).send();
         }
-    })
+    });
 
     var addFriendship = function(idUser1, idUser2, idFriendSol, res){
         let sql = "INSERT INTO friends (?, ?)";
