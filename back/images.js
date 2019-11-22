@@ -87,7 +87,7 @@ module.exports = function(router, b){
             }
 
             let sql = "SELECT photoUrl, type FROM likesPhotos l, friends f WHERE f.idUsers1 = l.idUsers and idUsers = ? and f.idUsers2 = ?"+typeFragment;
-            conn.query(sql, sql_params, function(err, result, fields){
+            let r = conn.query(sql, sql_params, function(err, result, fields){
                 if(err){
                     b.l.cerr(err);
                     b.processErrorStatus(res);
@@ -97,12 +97,15 @@ module.exports = function(router, b){
 
                 let imgs = [];
                 result.forEach(el => {
-
                     imgs.push({url: el.photoUrl, type: el.type});
                 });
 
-                res.json(imgs.reverse());
-            })
+                setLikedPhoto(idActualUser, imgs, function(e){
+                    res.json(e.reverse());
+                })
+
+            });
+            console.log(r.sql);
         }
         else{
             res.status(500).send();

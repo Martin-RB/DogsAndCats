@@ -25,6 +25,14 @@ define(function(require){
     var favorite_dogs_ = null;
     var favorite_cats_ = null;
     var reroll_ = null;
+    var notif_area_ = null;
+    var friend_stext_ = null;
+    var friend_search_btn_ = null;
+    var friend_search_area = null;
+    var other_favs = null;
+    var other_favorite_mixed_ = null;
+    var other_favorite_dogs_ = null;
+    var other_favorite_cats_ = null;
 
     var side_ran = null;
     var side_fav = null;
@@ -46,6 +54,31 @@ define(function(require){
     var unliked_icon = `<i class="far fa-heart"></i>`;
     var liked_icon = `<i class="fas fa-heart"></i>`;
     var restore = null;
+
+    var notification_req = `
+<div>
+<div>
+    <span class="not-item">:message:</span>
+</div>
+<div class="decide">
+    <div>
+    <span class="decideBtn f_accept" data-id=":id:"><i class="fas fa-check"></i></span>
+    </div>
+    <div>
+    <span class="decideBtn f_deny" data-id=":id:"><i class="fas fa-times"></i></span>
+    </div>
+</div>
+</div>`;
+
+    var notification_res = `
+    <div>
+    <div>
+    <span class="not-item">:message:</span>
+    </div>
+    </div>`;
+    
+    var friend_element = `<li><span class="fr-name">:name:</span> <span class="fr-watch f_see" data-id=":id:"><i class="fas fa-eye"></i></span><span class=" f_remove" data-id=":id:"><i class="fas fa-ban"></i></span></li>`;
+    var no_friend_element = `<li><span class="fr-name">:name:</span> <span class="fr-watch f_add" data-id=":id:"><i class="fas fa-user-friends"></i></span></li>`;
 
     // random
     // dogs
@@ -71,6 +104,10 @@ define(function(require){
 
         side_ran = container.find("#side_ran");
         side_fav = container.find("#side_fav");
+        other_favs = container.find("#other_favs");
+        other_favorite_mixed_ = container.find("#other_favorite_mixed_");
+        other_favorite_dogs_ = container.find("#other_favorite_dogs_");
+        other_favorite_cats_ = container.find("#other_favorite_cats_");
 
         sidenav_container = container.find("#sidenav_container");
         sidenav_close = container.find("#sidenav_close");
@@ -86,6 +123,9 @@ define(function(require){
         side_fav_mix = container.find("#side_fav_mix");
         side_fav_dog = container.find("#side_fav_dog");
         side_fav_cat = container.find("#side_fav_cat");
+        friend_stext_ = container.find("#friend_stext_");
+        friend_search_btn_ = container.find("#friend_search_btn_");
+        friend_search_area = container.find("#friend_search_area");
 
         petSpace = container.find("#petSpace");
         friends_open = container.find("#friends_open");
@@ -97,6 +137,7 @@ define(function(require){
         favorite_dogs_ = container.find("#favorite_dogs_");
         favorite_cats_ = container.find("#favorite_cats_");
         reroll_ = container.find("#reroll_");
+        notif_area_ = container.find("#notif_area_");
     }
 
     var initDerecha = function(){
@@ -178,8 +219,64 @@ define(function(require){
                 complete: function(r){
                     setUnlogged();
                     alert("See you later");
+                    random_mixed_.click();
                 }
             })
+        });
+        
+        friend_search_btn_.click(function(){
+            let search = friend_stext_.val();
+            if(search === ""){
+                getFriends();
+                return;
+            }
+            $.ajax({
+                type: "get",
+                url: connDir + `users/people/${search}`,
+                success: function(dat){
+                    friend_search_area.html("");
+                    console.log(dat);
+                    dat.forEach(el => {
+                        let x;
+                        if(el.isFriend == true){
+                            x = friend_element.replace(":name:", el.name)
+                                                .replace(":id:", el.idUser)
+                                                .replace(":id:", el.idUser);
+                        }
+                        else{
+                            x = no_friend_element.replace(":name:", el.name)
+                                                    .replace(":id:", el.idUser);
+                        }
+                        friend_search_area.append(x);
+                    });
+                }
+            });
+        });
+        
+        friend_search_area.off("click", ".f_see");
+        friend_search_area.on("click", ".f_see", function(){
+            var id = $(this).data("id");
+            var name = $(this).prev().html();
+            // PENDIENTE
+            addFriendMenu(id, name);
+        });
+        friend_search_area.off("click", ".f_remove");
+        friend_search_area.on("click", ".f_remove", function(){
+            var id = $(this).data("id");
+            // PENDIENTE
+        });
+        friend_search_area.off("click", ".f_add");
+        friend_search_area.on("click", ".f_add", function(){
+            var id = $(this).data("id");
+
+            $.ajax({
+                type: "post",
+                url: connDir + "users/friends/",
+                data: {id: id},
+                success: function(){
+                    alert("Friend request sent");
+                }
+            });
         });
         burger_btn.click(function(){
             openSidenav();
@@ -199,38 +296,97 @@ define(function(require){
             }
         });
 
+        notif_area_.off("click", ".f_accept");
+        notif_area_.on("click", ".f_accept", function(){
+            var id = $(this).data("id");
+            
+            $.ajax({
+                type: "put",
+                url: connDir + `users/friends/yes`,
+                data: {id: id},
+                success: function(){
+                    fillNotifications();
+                    getFriends();
+                },
+                complete: function(r){
+                    console.log(r);
+                }
+            });
+        });
+        notif_area_.off("click", ".f_deny");
+        notif_area_.on("click", ".f_deny", function(){
+            var id = $(this).data("id");
+            
+            $.ajax({
+                type: "put",
+                url: connDir + `users/friends/no`,
+                data: {id: id},
+                success: function(){
+                    fillNotifications();
+                    getFriends();
+                }
+            });
+        });
+
         random_mixed_.click(function(){
+            own_id = -1;
             owenership = "all";
             petType = "random";
             reroll_.show();
             getPets();
         });
         random_dogs_.click(function(){
+            own_id = -1;
             owenership = "all";
             petType = "dog";
             reroll_.show();
             getPets();
         });
         random_cats_.click(function(){
+            own_id = -1;
             owenership = "all";
             petType = "cat";
             reroll_.show();
             getPets();
         });
         favorite_mixed_.click(function(){
+            own_id = -1;
             owenership = "mine";
             petType = "random";
             reroll_.hide();
             getPets();
         });
         favorite_dogs_.click(function(){
+            own_id = -1;
             owenership = "mine";
             petType = "dog";
             reroll_.hide();
             getPets();
         });
         favorite_cats_.click(function(){
+            own_id = -1;
             owenership = "mine";
+            petType = "cat";
+            reroll_.hide();
+            getPets();
+        });
+        other_favorite_mixed_.click(function(){
+            own_id = $(this).data("id");
+            owenership = "other";
+            petType = "random";
+            reroll_.hide();
+            getPets();
+        });
+        other_favorite_dogs_.click(function(){
+            own_id = $(this).data("id");
+            owenership = "other";
+            petType = "dog";
+            reroll_.hide();
+            getPets();
+        });
+        other_favorite_cats_.click(function(){
+            own_id = $(this).data("id");
+            owenership = "other";
             petType = "cat";
             reroll_.hide();
             getPets();
@@ -240,12 +396,54 @@ define(function(require){
         })
     }
 
+    var addFriendMenu = function(id, name){
+        other_favs.show();
+        other_favs.find("span").html(name + " Favorites");
+        
+        other_favorite_mixed_.data("id", id);
+        other_favorite_dogs_.data("id", id);
+        other_favorite_cats_.data("id", id);
+    }
+
+    var getFriends = function(){
+        $.ajax({
+            type: "get",
+            url: connDir + "users/friends",
+            success: function(data){
+                friend_search_area.html("");
+                data.forEach(el => {
+                    let x;
+                    if(el.isFriend == true){
+                        x = friend_element.replace(":name:", el.name)
+                                            .replace(":id:", el.idUser)
+                                            .replace(":id:", el.idUser);
+                    }
+                    else{
+                        x = no_friend_element.replace(":name:", el.name)
+                                                .replace(":id:", el.idUser);
+                    }
+                    friend_search_area.append(x);
+                });
+            }
+        })
+    }
+
     var isLoggedIn = function(callback){
         $.ajax({
             type: "get",
             url: connDir + "user/login",
             complete: function(r){
                 callback(r.responseText == "true");
+            }
+        })
+    }
+
+    var getNotifications = function(callback){
+        $.ajax({
+            type: "get",
+            url: connDir + "users/notifications",
+            success: function(r){
+                callback(r);
             }
         })
     }
@@ -264,6 +462,27 @@ define(function(require){
         side_logout.show();
 
         friend_menu.show();
+        other_favs.hide();
+        getFriends();
+        fillNotifications();
+    }
+
+    var fillNotifications = function(){
+        notif_area_.html("");
+        getNotifications(function(dat){
+            dat.forEach(el => {
+                let s;
+                if(el.isRequest == true){
+                    s = notification_req.replace(":message:", el.msg)
+                                        .replace(":id:", el.id)
+                                        .replace(":id:", el.id);
+                }
+                else{
+                    s = notification_res.replace(":message:", el.msg);
+                }
+                notif_area_.append(s);
+            });
+        });
     }
     
     var setUnlogged = function(){
@@ -278,6 +497,7 @@ define(function(require){
         side_register.show();
         side_profile.hide();
         side_logout.hide();
+        other_favs.hide();
 
         friend_menu.hide();
     }
@@ -352,6 +572,7 @@ define(function(require){
     }
 
     var setSidenavEvents = function(){
+        sidenav_container.off("click",".sidenav-dropdown-btn");
         sidenav_container.on("click",".sidenav-dropdown-btn", function(){
             var child = $(this).next();
             child.toggle();
@@ -389,30 +610,6 @@ define(function(require){
         });
     }
 
-    var init = function(){
-        function openSidenav() {
-            document.getElementById("sidenav_container").style.display = "block";
-          }
-    
-          function closeSidenav() {
-            document.getElementById("sidenav_container").style.display = "none";
-          }
-          var dropdown = document.getElementsByClassName("sidenav-dropdown-btn");
-          var i;
-    
-          for (i = 0; i < dropdown.length; i++) {
-            dropdown[i].addEventListener("click", function() {
-              this.classList.toggle("active");
-              var dropdownContent = this.nextElementSibling;
-              if (dropdownContent.style.display === "block") {
-                dropdownContent.style.display = "none";
-              } else {
-                dropdownContent.style.display = "block";
-              }
-            });
-          }
-    }
-
     var getPets = function(){
         loading(true);
         petSpace.html("");
@@ -421,62 +618,38 @@ define(function(require){
             url: connDir + `images/${petType}/${owenership}/${own_id}`,
             dataType: "json",
             success: function(data){
-                data.forEach(el => {
+                data.forEach((el, i) => {
                     let url = el.url;
                     let type = el.type;
                     let liked = el.liked;
-                    addElement(url, type, liked);
+                    addElement(url, type, liked, i);
                 });
                 loading(false);
             }
         })
     }
 
- /*    var getDog = function(){
+    var getCounter = function(){
         $.ajax({
             type: "get",
-            dataType: "json",
-            url : "https://dog.ceo/api/breeds/image/random",
-            success: function(data){
-                addElement(data.message, "dog");
-            }
-        })
+            url: connDir + ""
+        });
     }
 
-    var getCat = function(){
-        $.ajax({
-            type: "get",
-            dataType: "json",
-            url : "https://api.thecatapi.com/v1/images/search",
-            success: function(data){
-                addElement(data[0].url, "cat")
-            }
-        });
-    } */
-
-/*     var getBoth = function(){
-        var rand = Math.round(Math.random() * 100);
-        if(rand >= 50){
-            getDog();
-        }
-        else{
-            getCat();
-        }
-    } */
-
-    var addElement = function(url, type, liked){
+    var addElement = function(url, type, liked, i){
         var el = 
                 `<div class="pet-el">
                     <img class="pet-img" src=":img:" alt="Nop"  >
                     <div class="pet-foot">
                         <span class="heart f_likePet" data-src=":img:" data-type=":type:" data-liked=":liked:">:icon:</span>
-                        <p class="counter">100k favs</p>
+                        <p class="counter" id="counter_:i:"></p>
                     </div>
                 </div>`;
         var res = el.replace(":img:", url)
                         .replace(":img:", url)
                         .replace(":type:", type)
-                        .replace(":liked:", liked);
+                        .replace(":liked:", liked)
+                        .replace(":i:", i);
         if(liked == true){
             res = res.replace(":icon:", liked_icon);
         }

@@ -17,11 +17,11 @@ module.exports = function(router, b){
             return;
         }
         
-        let sql = `select idUsers, name, f.idUsers2 as friend FROM users LEFT JOIN (SELECT * FROM friends WHERE idUsers2 = ?) f ON idUsers = f.idUsers1 WHERE name like '%?%' AND idUsers <> ?`;
-        let sql_params = [idActualUser, params.search, idActualUser];
+        let sql = `select idUsers, name, f.idUsers2 as friend FROM users LEFT JOIN (SELECT * FROM friends WHERE idUsers2 = ?) f ON idUsers = f.idUsers1 WHERE name like ? AND idUsers <> ?`;
+        let sql_params = [idActualUser, `%${params.search}%`, idActualUser];
         conn.query(sql, sql_params, function(err, result){
             if(err){
-                b.f.cerr(err);
+                b.l.cerr(err);
                 b.processErrorStatus(res);
                 res.send();
                 return;
@@ -33,13 +33,13 @@ module.exports = function(router, b){
                 console.log(el);
                 finalResult.push({
                     name: el.name,
-                    isFriend: el.friend !== null
+                    isFriend: el.friend !== null,
+                    idUser: el.idUsers
                 });
             });
 
             res.json(finalResult);
-
-        })
+        });
     });
 
     router.get("/friends", function(req, res){
@@ -51,12 +51,12 @@ module.exports = function(router, b){
             return;
         }
 
-        let sql = "SELECT name FROM users u, friends f WHERE f.idUsers1 = ? AND f.idUsers2 = u.idUsers";
+        let sql = "SELECT idUsers, name FROM users u, friends f WHERE f.idUsers1 = ? AND f.idUsers2 = u.idUsers";
         let sql_params = [idActualUser];
 
         conn.query(sql, sql_params, function(err, result){
             if(err){
-                b.f.cerr(err);
+                b.l.cerr(err);
                 b.processErrorStatus(res);
                 res.send();
                 return;
@@ -66,7 +66,8 @@ module.exports = function(router, b){
             result.forEach(el => {
                 finalResult.push({
                     name: el.name,
-                    isFriend: true
+                    isFriend: true,
+                    idUser: el.idUsers
                 });
             });
 
@@ -83,22 +84,38 @@ module.exports = function(router, b){
             return;
         }
 
-        let sql = "SELECT * FROM friend_solicitude f, users u WHERE f.idUsers = ? AND f.idUsers_dest = u.idUsers";
-        let sql_params = [idActualUser];
+        let sql = "SELECT idFriendSol, u.idUsers, idUsers_dest, status, u.name as name FROM friend_solicitude f, users u WHERE (f.idUsers = ? AND status <> 0 AND idUsers_dest = u.idUsers) OR (f.idUsers_dest = ? AND status = 0 AND f.idUsers = u.idUsers)";
+        let sql_params = [idActualUser, idActualUser];
         conn.query(sql, sql_params, function(err, result){
             if(err){
-                b.f.cerr(err);
+                b.l.cerr(err);
                 b.processErrorStatus(res);
                 res.send();
                 return;
             }
 
             let newResult = [];
-            result.forEach(el => {
-                newResult.push({
-                    
-                });
+            result.reverse().forEach(el => {
+
+                if(el.status != 0){
+                    newResult.push({
+                        isRequest: false,
+                        accepted: el.status == 1,
+                        id: el.idFriendSol,
+                        msg: `${el.name} has ${(el.status == 1)? "accepted": "denied"} your friend request! ${(el.status == 1)? ":D": "D:"}`
+                    });
+                }
+                else{
+                    newResult.push({
+                        isRequest: true,
+                        id: el.idFriendSol,
+                        msg: `${el.name} sent you a friend request! :O`
+                    });
+                }
+
             });
+
+            res.json(newResult);
         });
     });
 
@@ -125,7 +142,7 @@ module.exports = function(router, b){
 
         conn.query(sql, sql_params, function(err, result){
             if(err){
-                b.f.cerr(err);
+                b.l.cerr(err);
                 b.processErrorStatus(res);
                 res.send();
                 return;
@@ -137,7 +154,7 @@ module.exports = function(router, b){
 
     // Accept or deny
     // Receives idFriendSol
-    router.put("friends/:answer", function(){
+    router.put("/friends/:answer", function(req, res){
         let idActualUser = req.cookies["idUser"];
         if(idActualUser === undefined){
             b.l.cerr("You should be logged in", req.cookies);
@@ -158,7 +175,7 @@ module.exports = function(router, b){
         if(req.params.answer === "yes"){
             conn.query("SELECT idUsers, idUsers_dest FROM friend_solicitude WHERE idFriendSol = ?", [body.id], function(err, result){
                 if(err){
-                    b.f.cerr(err);
+                    b.l.cerr(err);
                     b.processErrorStatus(res);
                     res.send();
                     return;
@@ -197,17 +214,19 @@ module.exports = function(router, b){
         }
         else{
             res.status(500).send();
+            return;
         }
     });
 
     var addFriendship = function(idUser1, idUser2, idFriendSol, res){
-        let sql = "INSERT INTO friends (?, ?)";
+        let sql = "INSERT INTO friends values(?, ?)";
         let sql_params = [idUser1, idUser2];
         conn.beginTransaction(function(err){
             if(err){
                 conn.rollback(function(){
                     b.l.cerr(err);
                     res.status(500).send("Couldn't add friend");
+                    return;
                 });
             }
 
@@ -216,6 +235,7 @@ module.exports = function(router, b){
                     conn.rollback(function(){
                         b.l.cerr(err);
                         res.status(500).send("Couldn't add friend");
+                        return;
                     });
                 }
 
@@ -224,6 +244,7 @@ module.exports = function(router, b){
                         conn.rollback(function(){
                             b.l.cerr(err);
                             res.status(500).send("Couldn't add friend");
+                            return;
                         });
                     }
 
@@ -234,6 +255,7 @@ module.exports = function(router, b){
                             conn.rollback(function(){
                                 b.l.cerr(err);
                                 res.status(500).send("Couldn't add friend");
+                                return;
                             });
                         }
 
@@ -242,6 +264,7 @@ module.exports = function(router, b){
                                 conn.rollback(function(){
                                     b.l.cerr(err);
                                     res.status(500).send("Couldn't add friend");
+                                    return;
                                 });
                             }
     
