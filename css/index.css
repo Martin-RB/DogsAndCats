@@ -106,13 +106,13 @@ body{
   
 }
 .forgotPasswordBtn{
-    margin-left: 75%;
     text-decoration: none;
     color: black;
     font-style: italic;
 }
 .forgotPasswordBtn:hover{
     text-decoration: underline;
+    cursor: pointer;
 }
 .loginFields{
     width: 500px;

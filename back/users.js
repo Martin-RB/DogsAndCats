@@ -45,7 +45,7 @@ module.exports = function(router, b){
     router.get("/friends", function(req, res){
         let idActualUser = req.cookies["idUser"];
         if(idActualUser === undefined){
-            b.l.cerr("You should be logged in", params.search);
+            b.l.cerr("You should be logged in", req.cookies);
             b.inputErrorStatus(res);
             res.send();
             return;

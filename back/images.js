@@ -216,7 +216,7 @@ module.exports = function(router, b){
         if(idActualUser === undefined){
             b.l.cerr("No user");
             res.status(403);
-            res.send("You must be logged in before liking a photo");
+            res.send("You must be logged in before liking a photo. \n\nDon't worry, logging in won't reset images");
             return;
         }
 
