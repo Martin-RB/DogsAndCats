@@ -34,6 +34,13 @@ define(function(require){
     var other_favorite_dogs_ = null;
     var other_favorite_cats_ = null;
 
+    var side_favs = null;
+    var side_other_favs = null;
+    var side_other_fav_mix = null;
+    var side_other_fav_dog = null;
+    var side_other_fav_cat = null;
+
+
     var side_ran = null;
     var side_fav = null;
     
@@ -126,6 +133,12 @@ define(function(require){
         friend_stext_ = container.find("#friend_stext_");
         friend_search_btn_ = container.find("#friend_search_btn_");
         friend_search_area = container.find("#friend_search_area");
+
+        side_favs = container.find("#side_favs");
+        side_other_favs = container.find("#side_other_favs");
+        side_other_fav_mix = container.find("#side_other_fav_mix");
+        side_other_fav_dog = container.find("#side_other_fav_dog");
+        side_other_fav_cat = container.find("#side_other_fav_cat");
 
         petSpace = container.find("#petSpace");
         friends_open = container.find("#friends_open");
@@ -257,13 +270,20 @@ define(function(require){
         friend_search_area.on("click", ".f_see", function(){
             var id = $(this).data("id");
             var name = $(this).prev().html();
-            // PENDIENTE
             addFriendMenu(id, name);
         });
         friend_search_area.off("click", ".f_remove");
         friend_search_area.on("click", ".f_remove", function(){
             var id = $(this).data("id");
-            // PENDIENTE
+            $.ajax({
+                type: "delete",
+                url: connDir + "users/friends",
+                data: {id: id},
+                success: function(){
+                    alert("Unfriended succesfully!");
+                    getFriends();
+                }
+            })
         });
         friend_search_area.off("click", ".f_add");
         friend_search_area.on("click", ".f_add", function(){
@@ -391,6 +411,9 @@ define(function(require){
             reroll_.hide();
             getPets();
         });
+
+
+
         reroll_.click(function(){
             getPets();
         })
@@ -398,7 +421,9 @@ define(function(require){
 
     var addFriendMenu = function(id, name){
         other_favs.show();
+        side_other_favs.show();
         other_favs.find("span").html(name + " Favorites");
+        side_other_favs.find("span").html(name + " Favs");
         
         other_favorite_mixed_.data("id", id);
         other_favorite_dogs_.data("id", id);
@@ -463,6 +488,8 @@ define(function(require){
 
         friend_menu.show();
         other_favs.hide();
+        side_favs.show();
+        side_other_favs.hide();
         getFriends();
         fillNotifications();
     }
@@ -498,6 +525,9 @@ define(function(require){
         side_profile.hide();
         side_logout.hide();
         other_favs.hide();
+
+        side_favs.hide();
+        side_other_favs.hide();
 
         friend_menu.hide();
     }
@@ -608,6 +638,15 @@ define(function(require){
         side_fav_cat.click(function(){
             favorite_cats_.click();
         });
+        side_other_fav_mix.click(function(){
+            other_favorite_mixed_.click();
+        })
+        side_other_fav_dog.click(function(){
+            other_favorite_dogs_.click();
+        })
+        side_other_fav_cat.click(function(){
+            other_favorite_cats_.click();
+        })
     }
 
     var getPets = function(){
@@ -629,10 +668,14 @@ define(function(require){
         })
     }
 
-    var getCounter = function(){
+    var getCounter = function(url, callback){
         $.ajax({
-            type: "get",
-            url: connDir + ""
+            type: "post",
+            url: connDir + "images/likeCounter",
+            data: {url: url},
+            success: function(data){
+                callback(data.count);
+            }
         });
     }
 
@@ -656,6 +699,9 @@ define(function(require){
         else if(liked == false){
             res = res.replace(":icon:", unliked_icon);
         }
+        getCounter(url, function(count){
+            $("#counter_"+i).html(count + " favs");
+        })
         $(".petspace").append(res);
     }
 

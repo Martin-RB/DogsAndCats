@@ -96,13 +96,13 @@ userRouter.use(cookies());
 usersRouter.use(cookies());
 imagesRouter.use(cookies());
 
-/* userRouter.use(cors({credentials: true, origin: "http://localhost"}));
+userRouter.use(cors({credentials: true, origin: "http://localhost"}));
 usersRouter.use(cors({credentials: true, origin: "http://localhost"}));
-imagesRouter.use(cors({credentials: true, origin: "http://localhost"})); */
+imagesRouter.use(cors({credentials: true, origin: "http://localhost"}));
 
-userRouter.use(cors({credentials: true, origin: "http://104.197.82.238"}));
+/* userRouter.use(cors({credentials: true, origin: "http://104.197.82.238"}));
 usersRouter.use(cors({credentials: true, origin: "http://104.197.82.238"}));
-imagesRouter.use(cors({credentials: true, origin: "http://104.197.82.238"}));
+imagesRouter.use(cors({credentials: true, origin: "http://104.197.82.238"})); */
 
 app.use("/user", user(userRouter, obj));
 app.use("/users", users(usersRouter, obj));

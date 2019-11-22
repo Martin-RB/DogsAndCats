@@ -218,6 +218,40 @@ module.exports = function(router, b){
         }
     });
 
+    router.delete("/friends", function(req, res){
+        let idActualUser = req.cookies["idUser"];
+        if(idActualUser === undefined){
+            b.l.cerr("You should be logged in", params.search);
+            b.inputErrorStatus(res);
+            res.send();
+            return;
+        }
+        let body = req.body;
+        if(body === undefined || body.id === undefined || body.id === ""){
+            b.l.cerr("Bad input", body.id);
+            b.inputErrorStatus(res);
+            res.send();
+            return;
+        }
+
+        let idUserDest = body.id;
+
+        let sql = "DELETE FROM friends WHERE (idUsers1 = ? AND idUsers2 = ?) OR (idUsers2 = ? AND idUsers1 = ?)";
+        let sql_params = [idActualUser, idUserDest, idActualUser, idUserDest];
+
+        conn.query(sql, sql_params, function(err, result){
+            if(err){
+                b.l.cerr(err);
+                b.processErrorStatus(res);
+                res.send();
+                return;
+            }
+
+            res.send();
+        })
+
+    })
+
     var addFriendship = function(idUser1, idUser2, idFriendSol, res){
         let sql = "INSERT INTO friends values(?, ?)";
         let sql_params = [idUser1, idUser2];

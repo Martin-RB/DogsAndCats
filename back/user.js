@@ -296,8 +296,32 @@ module.exports = function(router, b){
 
 
 
-
     var sendEmail = function(to, subject, html, onErrorCallback, onSuceesCallback){
+        let transport = b.mailer.createTransport({
+            service: "Gmail",
+            auth: {
+                user: "marterdemasters@gmail.com",
+                pass: "martinrb1"
+            }
+        });
+        let mailOptions = {
+            from: "Dogs&Cats",
+            to: to,
+            subject: subject,
+            html: html
+        };
+        transport.sendMail(mailOptions, function(error, info){
+            if(error){
+                onErrorCallback(error);
+            }
+            else{
+                onSuceesCallback(info);
+            }
+        })
+    };
+
+
+    var sendEmail_old = function(to, subject, html, onErrorCallback, onSuceesCallback){
         let transport = b.mailer.createTransport({
             host: "smtp-mail.outlook.com",
             secureConnection: false,

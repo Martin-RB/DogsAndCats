@@ -264,5 +264,35 @@ module.exports = function(router, b){
             res.send();
         });
     });
+
+    router.post("/likeCounter/", function(req, res){
+        var params = req.body;
+        if(params === undefined || params.url === undefined || params.url === ""){
+            b.l.cerr("Invalid input", body);
+            b.inputErrorStatus(res);
+            res.send();
+            return;
+        }
+
+        let sql = "select COUNT(*) as number from likesPhotos WHERE photoUrl = ? GROUP BY photoUrl;";
+        let sql_params = [params.url];
+        conn.query(sql, sql_params, function(err, result){
+            if(err){
+                b.l.cerr(err);
+                b.processErrorStatus(res);
+                res.send();
+                return;
+            }
+            console.log(result);
+
+            if(result.length === 0){
+                res.json({count: 0});
+            }
+            else{
+                res.json({count: result[0].number});
+            }
+            
+        });
+    });
     return router;
 }

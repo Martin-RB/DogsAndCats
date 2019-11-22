@@ -356,6 +356,9 @@ body{
 .friends-open{
     display: inline-block;
     position: absolute;
+    background-color: #a34a28;
+    height: 14vh;
+    border-radius: 8px 0 0 8px;
 }
 .friends-area{
     display: inline-block;
