@@ -68,7 +68,6 @@ module.exports = function(router, b){
                 res.json(imgs.reverse());
             })
         }
-        // PENDIENTE
         else if (whom == "other"){
 
             if(params.id === undefined || params.id === ""){
@@ -105,7 +104,9 @@ module.exports = function(router, b){
                 })
 
             });
-            console.log(r.sql);
+        }
+        else if (whom == "top"){
+            getTop(idActualUser, petType, res);
         }
         else{
             res.status(500).send();
@@ -243,6 +244,12 @@ module.exports = function(router, b){
 
     router.delete("/likePhoto/", function(req, res){
         let idActualUser = req.cookies["idUser"];
+        if(idActualUser === undefined){
+            b.l.cerr("No user");
+            res.status(403);
+            res.send("You must be logged in before liking a photo");
+            return;
+        }
         let body = req.body;
         if(body === undefined || body.image === undefined || body.image === ""){
             b.l.cerr("Invalid input", body);
@@ -283,7 +290,6 @@ module.exports = function(router, b){
                 res.send();
                 return;
             }
-            console.log(result);
 
             if(result.length === 0){
                 res.json({count: 0});
@@ -294,5 +300,40 @@ module.exports = function(router, b){
             
         });
     });
+    
+    var getTop = function(idActualUser, type,res){
+
+        let typeFragment = " type = ? ";
+        let sql_params = [type];
+
+        if(type != "dog" && type != "cat"){
+            typeFragment = " true ";
+            sql_params = [];
+        }
+
+        let sql = `select COUNT(*) as number, photoUrl from likesPhotos WHERE ${typeFragment} GROUP BY photoUrl ORDER BY number DESC;`;
+        conn.query(sql, sql_params, function(err, result){
+            if(err){
+                b.l.cerr(err);
+                b.processErrorStatus(res);
+                res.send();
+                return;
+            }
+
+            let finalResults = [];
+
+            result.forEach(el => {
+                finalResults.push({
+                    url: el.photoUrl,
+                    count: el.number
+                });
+            });
+
+            setLikedPhoto(idActualUser, finalResults, function(e){
+                res.json(e);
+            })
+
+        });
+    };
     return router;
 }

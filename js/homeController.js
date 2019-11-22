@@ -40,6 +40,12 @@ define(function(require){
     var side_other_fav_dog = null;
     var side_other_fav_cat = null;
 
+    var side_top_mix = null;
+    var side_top_dog = null;
+    var side_top_cat = null;
+    var top_mixed_ = null;
+    var top_dogs_ = null;
+    var top_cats_ = null;
 
     var side_ran = null;
     var side_fav = null;
@@ -119,6 +125,13 @@ define(function(require){
         sidenav_container = container.find("#sidenav_container");
         sidenav_close = container.find("#sidenav_close");
         burger_btn = $("#burger_btn");
+
+        side_top_mix = container.find("#side_top_mix");
+        side_top_dog = container.find("#side_top_dog");
+        side_top_cat = container.find("#side_top_cat");
+        top_mixed_ = container.find("#top_mixed_");
+        top_dogs_ = container.find("#top_dogs_");
+        top_cats_ = container.find("#top_cats_");
 
         side_login = container.find("#side_login");
         side_register = container.find("#side_register");
@@ -270,6 +283,7 @@ define(function(require){
         friend_search_area.on("click", ".f_see", function(){
             var id = $(this).data("id");
             var name = $(this).prev().html();
+            alert("Now you can see " + name + " photos");
             addFriendMenu(id, name);
         });
         friend_search_area.off("click", ".f_remove");
@@ -411,6 +425,34 @@ define(function(require){
             reroll_.hide();
             getPets();
         });
+
+
+        top_mixed_.click(function(){
+            own_id = -1;
+            owenership = "top";
+            petType = "random";
+            reroll_.hide();
+            getPets();
+        });
+        top_dogs_.click(function(){
+            own_id = -1;
+            owenership = "top";
+            petType = "dog";
+            reroll_.hide();
+            getPets();
+        });
+        top_cats_.click(function(){
+            own_id = -1;
+            owenership = "top";
+            petType = "cat";
+            reroll_.hide();
+            getPets();
+        });
+
+
+        
+        
+        
 
 
 
@@ -646,6 +688,15 @@ define(function(require){
         })
         side_other_fav_cat.click(function(){
             other_favorite_cats_.click();
+        })
+        side_top_mix.click(function(){
+            top_mixed_.click();
+        })
+        side_top_dog.click(function(){
+            top_dogs_.click();
+        })
+        side_top_cat.click(function(){
+            top_cats_.click();
         })
     }
 
