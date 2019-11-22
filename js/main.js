@@ -49,8 +49,8 @@ var main = function(window, document, undefined){
             }
         }
 
-        window.connDir = "http://localhost:6969/";
-        /* window.connDir = "http://104.197.82.238:6969/"; */
+        /* window.connDir = "http://localhost:6969/"; */
+        window.connDir = "http://104.197.82.238:6969/";
 
         $(".back-btn").click(function(){
             navigation.popScreen();
