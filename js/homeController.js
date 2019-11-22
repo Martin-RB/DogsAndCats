@@ -99,6 +99,11 @@ define(function(require){
         reroll_ = container.find("#reroll_");
     }
 
+    var initDerecha = function(){
+        var width = friend_menu.width()/$(window).width()*100 - 3;
+        friend_menu.animate({right: `-${width}vw`}, 200);
+    }
+
     var setEvents = function(){
         setSidenavEvents();
         container.off("click", ".pet-img");
@@ -257,6 +262,8 @@ define(function(require){
         side_register.hide();
         side_profile.show();
         side_logout.show();
+
+        friend_menu.show();
     }
     
     var setUnlogged = function(){
@@ -271,6 +278,8 @@ define(function(require){
         side_register.show();
         side_profile.hide();
         side_logout.hide();
+
+        friend_menu.hide();
     }
 
     publics.setContainer = function(cont){
@@ -316,6 +325,7 @@ define(function(require){
                         setUnlogged();
                     }
                 });
+                initDerecha();
                 
             });
         }
