@@ -348,7 +348,31 @@ body{
     margin-right: auto;
 
 }
+.notificationsFriends-container{
+    /* display: flex;
+    flex-direction: column; */
+}
+.not-pop-container{
+    /* display: flex;
+    flex-direction: column; */
+    /* align-self: center; */
+}
+.not-pop-item > p{
+    position: fixed;
+    height: 35px;
+    color:white; 
+    background-color: gray; 
+  z-index: 3; 
+  cursor: pointer; 
+     width:30%;
+   margin-top: 78vh;
+   margin-left:35vw;
+   border-radius: 10px;
+   padding: 5px;
+}
 .friends-menu{
+    display:flex;
+    flex-direction: row;
     height: 80%;
     position: fixed;
     right: -16vw;  
@@ -604,15 +628,17 @@ body{
         margin-bottom: 5%;
     }
 
-    /*Esta Madre*/
-    /* .friends-menu{
-        height: 80%;
-        position: fixed;
-        right: calc("-16vw + 15px");  
-        margin-top: 10px;
-        width: 19vw;
-        font-size: 21px;
-    } */
+    .friends-menu{
+        right: -40vw;  
+        width: 50vw;
+    }
+    .not-pop-item > p{
+        margin-top: 75vh;
+        margin-left:20vw;
+        width:200px;
+        height:40px;
+    }
+    
 }
 
 @media (max-width: 1023px) and (min-width:427px){
@@ -632,6 +658,16 @@ body{
         height:50px;
         width: 50%;
         margin-bottom: 5%;
+    }
+    .friends-menu{   
+        right: -40vw;  
+        width: 42vw;
+    }
+    .not-pop-item > p{
+        margin-top: 70vh;
+        margin-left:24vw;
+        width:400px;
+        height:40px;
     }
 }
 
